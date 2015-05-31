@@ -13,17 +13,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Camera"
-        android:id="@+id/button" />
+        android:id="@+id/button_camera_luke" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Gallery"
-        android:id="@+id/button2" />
+        android:id="@+id/button_gallery_luke" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Meme"
-        android:id="@+id/button3" />
+        android:id="@+id/button_meme_luke" />
 </LinearLayout>
