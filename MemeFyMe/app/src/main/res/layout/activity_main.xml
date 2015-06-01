@@ -26,4 +26,9 @@
         android:layout_height="wrap_content"
         android:text="My Meme"
         android:id="@+id/button_meme_luke" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:id="@+id/imageView" />
 </LinearLayout>
