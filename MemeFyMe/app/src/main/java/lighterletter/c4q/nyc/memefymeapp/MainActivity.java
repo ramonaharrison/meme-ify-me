@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
 
 
     static final int REQUEST_CODE_TAKE_PHOTO = 1;
-    static final int REQUEST_CODE_IMAGE_GET = 1;
+    static final int REQUEST_CODE_IMAGE_GET = 2;
 
     Uri imageUri;
 
@@ -64,10 +63,12 @@ public class MainActivity extends ActionBarActivity {
     // create a file to save the picture and start camera activity.
     private void takePhoto(View v) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "picture.jpg");
+        String imageFileName = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss").format(new Date());
+        File photoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), imageFileName + ".jpg");
         imageUri = Uri.fromFile(photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
+
     }
 
     private void selectPhoto(View v) {
@@ -114,9 +115,8 @@ public class MainActivity extends ActionBarActivity {
 
         }
 
-
         // after taking a picture, if the user presses OK button
-        else if (resultCode == RESULT_OK) {
+        else if (requestCode == REQUEST_CODE_TAKE_PHOTO && resultCode == RESULT_OK) {
             Uri selectedImage = imageUri;
             getContentResolver().notifyChange(selectedImage, null);
 
@@ -124,6 +124,9 @@ public class MainActivity extends ActionBarActivity {
             ContentResolver cr = getContentResolver();
 
             Bitmap bitmap;
+            Intent ramona = new Intent(getApplicationContext(), RamonaActivity.class);
+            ramona.putExtra("uri", selectedImage);
+            startActivity(ramona);
 
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(cr, selectedImage);
