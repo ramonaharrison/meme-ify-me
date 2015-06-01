@@ -1,12 +1,16 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
 import android.app.Activity;
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Fragment;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 
 /**
@@ -18,14 +22,28 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Vanilla extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "imageId";
+    private static final String ARG_PARAM2 = "topText";
+    private static final String ARG_PARAM3 = "middleText";
+    private static final String ARG_PARAM4 = "bottomText";
+    private static final String ARG_PARAM5 = "isNewProject";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
+    private int imageId;
+    private String topText;
+    private String middleText;
+    private String bottomText;
+    private boolean isNewProject;
+
+    private FrameLayout memeView;
+    private ImageView backgroundImageView;
+    private EditText topTextView;
+    private EditText middleTextView;
+    private EditText bottomTextView;
+    private Button saveButton;
+    private Drawable image;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -33,17 +51,22 @@ public class Vanilla extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param imageId Resource id for base image.
+     * @param isNewProject true = new image and black text, false = pull bg layer from drawable, populate text
      * @return A new instance of fragment Vanilla.
      */
-    // TODO: Rename and change types and number of parameters
-    public static Vanilla newInstance(String param1, String param2) {
+
+    public static Vanilla newInstance(int imageId, boolean isNewProject, String topText, String middleText, String bottomText) {
         Vanilla fragment = new Vanilla();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
+        args.putInt(ARG_PARAM1, imageId);
+        args.putString(ARG_PARAM2, topText);
+        args.putString(ARG_PARAM3, middleText);
+        args.putString(ARG_PARAM4, bottomText);
+        args.putBoolean(ARG_PARAM5, isNewProject);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -54,25 +77,79 @@ public class Vanilla extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            imageId = getArguments().getInt(ARG_PARAM1);
+            topText = getArguments().getString(ARG_PARAM2);
+            middleText = getArguments().getString(ARG_PARAM3);
+            bottomText = getArguments().getString(ARG_PARAM4);
+            isNewProject = getArguments().getBoolean(ARG_PARAM5);
+        } else {
+            // TODO: update to deal with isNewProject boolean
+            topText = "";
+            middleText = "";
+            bottomText = "";
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_vanilla, container, false);
+        View view = inflater.inflate(R.layout.fragment_vanilla, container, false);
+
+        // Find all the views
+        memeView = (FrameLayout) view.findViewById(R.id.memeView);
+        backgroundImageView = (ImageView) view.findViewById(R.id.vanillaBackgroundImage);
+        topTextView = (EditText) view.findViewById(R.id.topText);
+        middleTextView = (EditText) view.findViewById(R.id.middleText);
+        bottomTextView = (EditText) view.findViewById(R.id.bottomText);
+        saveButton = (Button) view.findViewById(R.id.save_button);
+
+        // Populate the EditTexts
+        topTextView.setText(topText);
+        middleTextView.setText(middleText);
+        bottomTextView.setText(bottomText);
+
+        // Set up image to be edited
+        image = getResources().getDrawable(imageId);
+        final int width = image.getIntrinsicWidth();
+        final int height = image.getIntrinsicHeight();
+
+        backgroundImageView.setImageDrawable(image);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                // Save text
+                mListener.onTextChanged(0, topTextView.getText().toString());
+                mListener.onTextChanged(1, middleTextView.getText().toString());
+                mListener.onTextChanged(2, bottomTextView.getText().toString());
+
+                // Hide cursors
+                topTextView.setCursorVisible(false);
+                middleTextView.setCursorVisible(false);
+                bottomTextView.setCursorVisible(false);
+
+
+                mListener.onSaveButtonClicked(memeView, width, height);
+
+            }
+        });
+
+        return view;
+
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onPause() {
+        mListener.onTextChanged(0, topTextView.getText().toString());
+        mListener.onTextChanged(1, middleTextView.getText().toString());
+        mListener.onTextChanged(2, bottomTextView.getText().toString());
+        super.onPause();
     }
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -102,8 +179,12 @@ public class Vanilla extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+
+        public void onTextChanged(int pos, String text);
+
+        public void onSaveButtonClicked(View memeView, int width, int height);
     }
+
+
 
 }

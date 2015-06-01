@@ -1,17 +1,50 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
-import android.support.v7.app.ActionBarActivity;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.io.FileNotFoundException;
 
 
 public class DummyActivity extends ActionBarActivity {
+
+    ImageView original, bitmap;
+    TextView top, middle, bottom;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dummy);
+
+        original = (ImageView) findViewById(R.id.original);
+        bitmap = (ImageView) findViewById(R.id.bitmap);
+        top = (TextView) findViewById(R.id.top);
+        middle = (TextView) findViewById(R.id.middle);
+        bottom = (TextView) findViewById(R.id.bottom);
+
+        VanillaMeme meme = getIntent().getParcelableExtra("meme");
+        String filename = getIntent().getStringExtra("filename");
+
+        original.setImageResource(meme.getImageId());
+        top.setText("Top text:  " + meme.getTopText());
+        middle.setText("Middle text:  " + meme.getMiddleText());
+        bottom.setText("Bottom text:  " + meme.getBottomText());
+
+        java.io.FileInputStream in = null;
+        try {
+            in = openFileInput(filename);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        bitmap.setImageBitmap(BitmapFactory.decodeStream(in));
+
     }
 
 
