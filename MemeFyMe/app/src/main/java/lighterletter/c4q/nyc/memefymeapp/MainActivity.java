@@ -33,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
 
 
     static final int REQUEST_CODE_TAKE_PHOTO = 1;
+    static final int REQUEST_CODE_IMAGE_GET = 1;
 
     Uri imageUri;
 
@@ -60,8 +61,21 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
+    // create a file to save the picture and start camera activity.
+    private void takePhoto(View v) {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File photoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "picture.jpg");
+        imageUri = Uri.fromFile(photoFile);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
+    }
+
     private void selectPhoto(View v) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, REQUEST_CODE_IMAGE_GET);
+        }
 
     }
 
@@ -73,22 +87,36 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-    // create a file to save the picture and start camera activity.
-    private void takePhoto(View v) {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "picture.jpg");
-        imageUri = Uri.fromFile(photoFile);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
-    }
+
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == REQUEST_CODE_IMAGE_GET && resultCode == RESULT_OK) {
+
+            Uri fullPhotoUri = data.getData();
+            //getContentResolver().notifyChange(fullPhotoUri, null);
+            mImageView = (ImageView) findViewById(R.id.imageView);
+            ContentResolver cr = getContentResolver();
+
+            Bitmap bitmap;
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(cr, fullPhotoUri);
+                bitmap = Bitmap.createScaledBitmap(bitmap, mImageView.getWidth(), mImageView.getHeight(), true);
+                mImageView.setImageBitmap(bitmap);
+                Toast.makeText(getApplicationContext(), "success!", Toast.LENGTH_LONG);
+
+            } catch (Exception e) {
+
+            }
+
+        }
+
+
         // after taking a picture, if the user presses OK button
-        if (resultCode == RESULT_OK) {
+        else if (resultCode == RESULT_OK) {
             Uri selectedImage = imageUri;
             getContentResolver().notifyChange(selectedImage, null);
 
