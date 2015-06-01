@@ -102,6 +102,11 @@ public class MainActivity extends ActionBarActivity {
             mImageView = (ImageView) findViewById(R.id.imageView);
             ContentResolver cr = getContentResolver();
 
+            Intent ramona = new Intent(getApplicationContext(), RamonaActivity.class);
+            ramona.putExtra("uri", fullPhotoUri);
+            startActivity(ramona);
+
+
             Bitmap bitmap;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(cr, fullPhotoUri);
