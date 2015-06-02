@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,11 +23,15 @@ public class RamonaActivity extends Activity {
     Uri imageUri;
     Bitmap bitmap;
 
+    Button buttonShare;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ramona);
         mImageView = (ImageView) findViewById(R.id.imageView2);
+
+        buttonShare = (Button) findViewById(R.id.button_share);
 
 
         imageUri = getIntent().getExtras().getParcelable("uri");
@@ -37,6 +43,17 @@ public class RamonaActivity extends Activity {
         }
         bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
         mImageView.setImageBitmap(bitmap);
+
+
+        buttonShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_STREAM, imageUri);
+                startActivity(intent);
+            }
+        });
 
     }
 }

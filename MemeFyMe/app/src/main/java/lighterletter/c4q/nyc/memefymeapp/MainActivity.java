@@ -28,8 +28,6 @@ public class MainActivity extends ActionBarActivity {
     Button buttonCamera;
     Button buttonGallery;
 
-    ImageView mImageView;
-
 
     static final int REQUEST_CODE_TAKE_PHOTO = 1;
     static final int REQUEST_CODE_IMAGE_GET = 2;
@@ -41,13 +39,11 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         buttonCamera = (Button) findViewById(R.id.button_camera_luke);
         buttonCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 takePhoto(v);
-
             }
         });
 
@@ -81,71 +77,33 @@ public class MainActivity extends ActionBarActivity {
     }
 
     // add the picture to the gallery
-    private void galleryAddPic(Uri uri) {
+    private void addPictureToGallery(Uri uri) {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         mediaScanIntent.setData(uri);
         this.sendBroadcast(mediaScanIntent);
     }
 
-
-
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        // choose a picture from gallery
         if (requestCode == REQUEST_CODE_IMAGE_GET && resultCode == RESULT_OK) {
-
             Uri fullPhotoUri = data.getData();
-            //getContentResolver().notifyChange(fullPhotoUri, null);
-            mImageView = (ImageView) findViewById(R.id.imageView);
-            ContentResolver cr = getContentResolver();
-
             Intent ramona = new Intent(getApplicationContext(), RamonaActivity.class);
             ramona.putExtra("uri", fullPhotoUri);
             startActivity(ramona);
 
-
-            Bitmap bitmap;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(cr, fullPhotoUri);
-                bitmap = Bitmap.createScaledBitmap(bitmap, mImageView.getWidth(), mImageView.getHeight(), true);
-                mImageView.setImageBitmap(bitmap);
-                Toast.makeText(getApplicationContext(), "success!", Toast.LENGTH_LONG);
-
-            } catch (Exception e) {
-
-            }
-
         }
-
         // after taking a picture, if the user presses OK button
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO && resultCode == RESULT_OK) {
             Uri selectedImage = imageUri;
             getContentResolver().notifyChange(selectedImage, null);
-
-            mImageView = (ImageView) findViewById(R.id.imageView);
-            ContentResolver cr = getContentResolver();
-
-            Bitmap bitmap;
             Intent ramona = new Intent(getApplicationContext(), RamonaActivity.class);
             ramona.putExtra("uri", selectedImage);
             startActivity(ramona);
 
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(cr, selectedImage);
-                bitmap = Bitmap.createScaledBitmap(bitmap, mImageView.getWidth(), mImageView.getHeight(), true);
-                mImageView.setImageBitmap(bitmap);
-                Toast.makeText(getApplicationContext(), "success!", Toast.LENGTH_LONG);
-                galleryAddPic(selectedImage);
-            } catch (Exception e) {
-
-            }
         }
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -165,7 +123,6 @@ public class MainActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
