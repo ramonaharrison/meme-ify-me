@@ -1,0 +1,70 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black" tools:context="lighterletter.c4q.nyc.memefymeapp.Vanilla">
+
+
+    <FrameLayout
+        android:id="@+id/memeView"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/vanillaBackgroundImage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/vanillaBackground"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:layout_marginTop="10dp"
+                android:inputType="textMultiLine"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/topText" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center"
+                android:inputType="textMultiLine"
+                android:textColor="@android:color/white"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/middleText" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:inputType="textMultiLine"
+                android:textColor="@android:color/white"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/bottomText" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_height="wrap_content"
+        android:text="@string/save_button"
+        android:id="@+id/save_button" />
+
+</FrameLayout>
