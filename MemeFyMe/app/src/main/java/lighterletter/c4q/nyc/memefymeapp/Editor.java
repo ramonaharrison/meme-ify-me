@@ -39,7 +39,7 @@ public class Editor extends ActionBarActivity
     private Vanilla mVanillaFragment;
     private Demotivational mDemotivationalFragment;
     private Custom mCustomFragment;
-    private int imageId;
+    private Uri imageUri;
     private boolean isNewProject;
     private String topText;
     private String middleText;
@@ -51,13 +51,13 @@ public class Editor extends ActionBarActivity
 
         if (savedInstanceState == null) {
             // TODO: grab unique imageId + new project boolean from Intent
-            imageId = R.drawable.dolphin;
+            imageUri = getIntent().getParcelableExtra("uri");
             isNewProject = true;
             topText = "";
             middleText = "";
             bottomText = "";
         } else {
-            imageId = savedInstanceState.getInt("imageId");
+            imageUri = savedInstanceState.getParcelable("imageUri");
             isNewProject = savedInstanceState.getBoolean("isNewProject");
             topText = savedInstanceState.getString("topText");
             middleText = savedInstanceState.getString("middleText");
@@ -87,7 +87,7 @@ public class Editor extends ActionBarActivity
     {
         super.onSaveInstanceState(outState);
 
-        outState.putInt("imageId", imageId);
+        outState.putParcelable("imageUri", imageUri);
         outState.putBoolean("newProject", isNewProject);
         outState.putString("topText", topText);
         outState.putString("middleText", middleText);
@@ -101,7 +101,7 @@ public class Editor extends ActionBarActivity
 
         switch (position) {
             case 0:
-                mVanillaFragment = Vanilla.newInstance(imageId, isNewProject, topText, middleText, bottomText);
+                mVanillaFragment = Vanilla.newInstance(imageUri, isNewProject, topText, middleText, bottomText);
                 fx = getFragmentManager().beginTransaction();
                 fx.replace(R.id.container, mVanillaFragment);
                 fx.addToBackStack(null);
@@ -209,7 +209,6 @@ public class Editor extends ActionBarActivity
         // Take a screenshot
         Bitmap sharable = screenshotView(memeView, width, height);
 
-
         String filename = "vanilla.png";
         FileOutputStream out = null;
         try {
@@ -228,7 +227,7 @@ public class Editor extends ActionBarActivity
         }
 
         // Build meme object
-        VanillaMeme meme = new VanillaMeme(imageId, topText, middleText, bottomText);
+        VanillaMeme meme = new VanillaMeme(imageUri, topText, middleText, bottomText);
 
         Intent intent = new Intent(this, DummyActivity.class);
         intent.putExtra("meme", meme);
