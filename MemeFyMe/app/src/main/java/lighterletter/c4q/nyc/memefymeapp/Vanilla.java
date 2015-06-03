@@ -2,7 +2,9 @@ package lighterletter.c4q.nyc.memefymeapp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+
+import java.io.File;
 
 
 /**
@@ -30,7 +34,7 @@ public class Vanilla extends Fragment {
     private static final String ARG_PARAM5 = "isNewProject";
 
 
-    private int imageId;
+    private Uri imageUri;
     private String topText;
     private String middleText;
     private String bottomText;
@@ -51,16 +55,16 @@ public class Vanilla extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param imageId Resource id for base image.
+     * @param imageUri Uri for editing image.
      * @param isNewProject true = new image and black text, false = pull bg layer from drawable, populate text
      * @return A new instance of fragment Vanilla.
      */
 
-    public static Vanilla newInstance(int imageId, boolean isNewProject, String topText, String middleText, String bottomText) {
+    public static Vanilla newInstance(Uri imageUri, boolean isNewProject, String topText, String middleText, String bottomText) {
         Vanilla fragment = new Vanilla();
         Bundle args = new Bundle();
 
-        args.putInt(ARG_PARAM1, imageId);
+        args.putParcelable(ARG_PARAM1, imageUri);
         args.putString(ARG_PARAM2, topText);
         args.putString(ARG_PARAM3, middleText);
         args.putString(ARG_PARAM4, bottomText);
@@ -79,7 +83,7 @@ public class Vanilla extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            imageId = getArguments().getInt(ARG_PARAM1);
+            imageUri = getArguments().getParcelable(ARG_PARAM1);
             topText = getArguments().getString(ARG_PARAM2);
             middleText = getArguments().getString(ARG_PARAM3);
             bottomText = getArguments().getString(ARG_PARAM4);
@@ -113,11 +117,15 @@ public class Vanilla extends Fragment {
         bottomTextView.setText(bottomText);
 
         // Set up image to be edited
-        image = getResources().getDrawable(imageId);
-        final int width = image.getIntrinsicWidth();
-        final int height = image.getIntrinsicHeight();
 
-        backgroundImageView.setImageDrawable(image);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(new File(imageUri.getPath()).getAbsolutePath(), options);
+
+        final int width = options.outWidth;
+        final int height = options.outHeight;
+
+        backgroundImageView.setImageURI(imageUri);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

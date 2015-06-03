@@ -1,5 +1,6 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
+import android.net.Uri;
 import android.os.Parcelable;
 
 /**
@@ -8,18 +9,18 @@ import android.os.Parcelable;
  */
 public abstract class Meme implements Parcelable{
 
-    private int imageId;
+    private Uri imageUri;
 
-    public Meme(int imageId) {
-        this.imageId = imageId;
+    public Meme(Uri imageUri) {
+        this.imageUri = imageUri;
     }
 
-    public int getImageId() {
-        return imageId;
+    public Uri getImageUri() {
+        return imageUri;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setImageUri(Uri imageUri) {
+        this.imageUri = imageUri;
     }
 
 }

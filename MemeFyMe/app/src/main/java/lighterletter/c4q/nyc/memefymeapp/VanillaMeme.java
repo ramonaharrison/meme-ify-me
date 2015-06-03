@@ -1,5 +1,6 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,10 +10,12 @@ import android.os.Parcelable;
  */
 public class VanillaMeme extends Meme {
 
+
+
     private String topText, middleText, bottomText;
 
-    public VanillaMeme(int imageId, String topText, String middleText, String bottomText) {
-        super(imageId);
+    public VanillaMeme(Uri imageUri, String topText, String middleText, String bottomText) {
+        super(imageUri);
         this.topText = topText;
         this.middleText = middleText;
         this.bottomText = bottomText;
@@ -50,7 +53,7 @@ public class VanillaMeme extends Meme {
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
-        out.writeInt(getImageId());
+        getImageUri().writeToParcel(out, flags);
         out.writeString(getTopText());
         out.writeString(getMiddleText());
         out.writeString(getBottomText());
@@ -72,7 +75,7 @@ public class VanillaMeme extends Meme {
 
     // example constructor that takes a Parcel and gives you an object populated with it's values
     private VanillaMeme(Parcel in) {
-        super(in.readInt());
+        super(Uri.CREATOR.createFromParcel(in));
         setTopText(in.readString());
         setMiddleText(in.readString());
         setBottomText(in.readString());

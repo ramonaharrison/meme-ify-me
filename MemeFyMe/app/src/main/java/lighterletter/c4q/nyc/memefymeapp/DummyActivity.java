@@ -31,7 +31,8 @@ public class DummyActivity extends ActionBarActivity {
         VanillaMeme meme = getIntent().getParcelableExtra("meme");
         String filename = getIntent().getStringExtra("filename");
 
-        original.setImageResource(meme.getImageId());
+        original.setImageURI(meme.getImageUri());
+
         top.setText("Top text:  " + meme.getTopText());
         middle.setText("Middle text:  " + meme.getMiddleText());
         bottom.setText("Bottom text:  " + meme.getBottomText());
