@@ -15,6 +15,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Share"
-        android:id="@+id/button_share"
+        android:id="@+id/share_picture_share_button"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
