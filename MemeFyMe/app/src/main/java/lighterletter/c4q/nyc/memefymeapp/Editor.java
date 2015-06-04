@@ -44,24 +44,30 @@ public class Editor extends ActionBarActivity
     private String topText;
     private String middleText;
     private String bottomText;
+    private String bigText;
+    private String subText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            // TODO: grab unique imageId + new project boolean from Intent
+            // TODO: new project boolean from Intent
             imageUri = getIntent().getParcelableExtra("uri");
             isNewProject = true;
             topText = "";
             middleText = "";
             bottomText = "";
+            bigText="";
+            subText="";
         } else {
             imageUri = savedInstanceState.getParcelable("imageUri");
             isNewProject = savedInstanceState.getBoolean("isNewProject");
             topText = savedInstanceState.getString("topText");
             middleText = savedInstanceState.getString("middleText");
             bottomText = savedInstanceState.getString("bottomText");
+            bigText = savedInstanceState.getString("bigText");
+            subText = savedInstanceState.getString("subText");
         }
 
         setContentView(R.layout.activity_editor);
@@ -92,6 +98,8 @@ public class Editor extends ActionBarActivity
         outState.putString("topText", topText);
         outState.putString("middleText", middleText);
         outState.putString("bottomText", bottomText);
+        outState.putString("bigText", bigText);
+        outState.putString("subText", subText);
     }
 
     @Override
@@ -109,7 +117,7 @@ public class Editor extends ActionBarActivity
 
                 break;
             case 1:
-                mDemotivationalFragment = Demotivational.newInstance("", "");
+                mDemotivationalFragment = Demotivational.newInstance(imageUri, isNewProject, bigText, subText);
                 fx = getFragmentManager().beginTransaction();
                 fx.replace(R.id.container, mDemotivationalFragment);
                 fx.addToBackStack(null);
@@ -229,7 +237,7 @@ public class Editor extends ActionBarActivity
         // Build meme object
         VanillaMeme meme = new VanillaMeme(imageUri, topText, middleText, bottomText);
 
-        Intent intent = new Intent(this, DummyActivity.class);
+        Intent intent = new Intent(this, VanillaMemeSampleActivity.class);
         intent.putExtra("meme", meme);
         intent.putExtra("filename", filename);
         startActivity(intent);
@@ -243,6 +251,49 @@ public class Editor extends ActionBarActivity
         v.layout(0, 0, v.getLayoutParams().width, v.getLayoutParams().height);
         v.draw(c);
         return screenshot;
+    }
+
+    @Override
+    public void onDemotivationalTextChanged(int pos, String text) {
+        switch (pos) {
+            case 0:
+                bigText = text;
+            case 1:
+                subText = text;
+        }
+    }
+
+    @Override
+    public void onDemotivationalSaveButtonClicked(View memeView, int width, int height) {
+// TODO: update to link with John's save activity, create custom filenames
+
+        // Take a screenshot
+        Bitmap sharable = screenshotView(memeView, width, height);
+
+        String filename = "demotivational.png";
+        FileOutputStream out = null;
+        try {
+            out = openFileOutput(filename, Context.MODE_PRIVATE);
+            sharable.compress(Bitmap.CompressFormat.PNG, 100, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Build meme object
+        DemotivationalMeme meme = new DemotivationalMeme(imageUri, bigText, subText);
+
+        Intent intent = new Intent(this, DemotivationalMemeSampleActivity.class);
+        intent.putExtra("meme", meme);
+        intent.putExtra("filename", filename);
+        startActivity(intent);
     }
 
     /**

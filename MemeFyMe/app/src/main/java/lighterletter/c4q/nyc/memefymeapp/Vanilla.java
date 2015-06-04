@@ -3,7 +3,6 @@ package lighterletter.c4q.nyc.memefymeapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,7 +26,7 @@ import java.io.File;
  */
 public class Vanilla extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "imageId";
+    private static final String ARG_PARAM1 = "imageUri";
     private static final String ARG_PARAM2 = "topText";
     private static final String ARG_PARAM3 = "middleText";
     private static final String ARG_PARAM4 = "bottomText";
@@ -46,8 +45,6 @@ public class Vanilla extends Fragment {
     private EditText middleTextView;
     private EditText bottomTextView;
     private Button saveButton;
-    private Drawable image;
-
 
     private OnFragmentInteractionListener mListener;
 

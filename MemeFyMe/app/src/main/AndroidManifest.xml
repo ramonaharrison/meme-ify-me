@@ -28,8 +28,13 @@
             android:label="@string/title_activity_editor" >
         </activity>
         <activity
-            android:name=".DummyActivity"
+            android:name=".VanillaMemeSampleActivity"
             android:label="@string/title_activity_dummy" >
+        </activity>
+
+        <activity
+            android:name=".DemotivationalMemeSampleActivity"
+            android:label="@string/title_activity_demotivational_meme_sample" >
         </activity>
 
         <activity
@@ -41,3 +46,4 @@
     </application>
 
 </manifest>
+

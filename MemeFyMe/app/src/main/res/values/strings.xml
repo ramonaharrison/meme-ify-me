@@ -18,4 +18,5 @@
     <string name="save_button">Save</string>
     <string name="title_activity_dummy">DummyActivity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_demotivational_meme_sample">DemotivationalMemeSampleActivity</string>
 </resources>
