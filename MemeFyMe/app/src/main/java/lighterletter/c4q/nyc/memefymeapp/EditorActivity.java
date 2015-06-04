@@ -23,7 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class Editor extends ActionBarActivity
+public class EditorActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, Vanilla.OnFragmentInteractionListener, Demotivational.OnFragmentInteractionListener, Custom.OnFragmentInteractionListener {
 
     /**
@@ -51,7 +51,7 @@ public class Editor extends ActionBarActivity
 
         if (savedInstanceState == null) {
             // TODO: grab unique imageId + new project boolean from Intent
-            imageUri = getIntent().getParcelableExtra("uri");
+            imageUri = getIntent().getExtras().getParcelable("uri");
             isNewProject = true;
             topText = "";
             middleText = "";
@@ -280,9 +280,50 @@ public class Editor extends ActionBarActivity
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((Editor) activity).onSectionAttached(
+            ((EditorActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
 
 }
+
+//public class RamonaActivity extends Activity {
+//    ImageView mImageView;
+//
+//    Uri imageUri;
+//    Bitmap bitmap;
+//
+//    Button buttonShare;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_ramona);
+//        mImageView = (ImageView) findViewById(R.id.imageView2);
+//
+//        buttonShare = (Button) findViewById(R.id.button_share);
+//
+//
+//        imageUri = getIntent().getExtras().getParcelable("uri");
+//
+//        try {
+//            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+//        mImageView.setImageBitmap(bitmap);
+//
+//
+//        buttonShare.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_SEND);
+//                intent.setType("image/*");
+//                intent.putExtra(Intent.EXTRA_STREAM, imageUri);
+//                startActivity(intent);
+//            }
+//        });
+//
+//    }
+//}

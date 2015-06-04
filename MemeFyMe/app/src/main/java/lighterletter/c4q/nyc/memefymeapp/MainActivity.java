@@ -82,7 +82,7 @@ public class MainActivity extends ActionBarActivity {
         // choose a picture from gallery
         if (requestCode == REQUEST_CODE_IMAGE_GET && resultCode == RESULT_OK) {
             Uri fullPhotoUri = data.getData();
-            Intent ramona = new Intent(getApplicationContext(), RamonaActivity.class);
+            Intent ramona = new Intent(getApplicationContext(), EditorActivity.class);
             ramona.putExtra("uri", fullPhotoUri);
             startActivity(ramona);
 
@@ -91,8 +91,8 @@ public class MainActivity extends ActionBarActivity {
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO && resultCode == RESULT_OK) {
             Uri selectedImage = imageUri;
             addPictureToGallery(selectedImage);
-            getContentResolver().notifyChange(selectedImage, null);
-            Intent ramona = new Intent(getApplicationContext(), Editor.class);
+            //getContentResolver().notifyChange(selectedImage, null);
+            Intent ramona = new Intent(getApplicationContext(), EditorActivity.class);
             ramona.putExtra("uri", selectedImage);
             startActivity(ramona);
 
