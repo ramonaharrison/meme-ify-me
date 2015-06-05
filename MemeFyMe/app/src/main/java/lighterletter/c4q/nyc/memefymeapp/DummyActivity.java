@@ -1,10 +1,14 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +19,7 @@ public class DummyActivity extends ActionBarActivity {
 
     ImageView original, bitmap;
     TextView top, middle, bottom;
+    private Button sharePicture;
 
 
     @Override
@@ -27,9 +32,11 @@ public class DummyActivity extends ActionBarActivity {
         top = (TextView) findViewById(R.id.top);
         middle = (TextView) findViewById(R.id.middle);
         bottom = (TextView) findViewById(R.id.bottom);
+        sharePicture = (Button)findViewById(R.id.share_picture_share_button);
 
         VanillaMeme meme = getIntent().getParcelableExtra("meme");
-        String filename = getIntent().getStringExtra("filename");
+
+        final String filename = getIntent().getStringExtra("filename");
 
         original.setImageURI(meme.getImageUri());
 
@@ -45,6 +52,16 @@ public class DummyActivity extends ActionBarActivity {
         }
 
         bitmap.setImageBitmap(BitmapFactory.decodeStream(in));
+
+        sharePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("image/jpeg");
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(filename));
+                startActivity(Intent.createChooser(intent, "Share picture with..."));
+            }
+        });
 
     }
 

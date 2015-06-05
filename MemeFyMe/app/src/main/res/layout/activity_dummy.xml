@@ -44,6 +44,11 @@
             android:text="New Text"
             android:id="@+id/bottom" />
 
+        <Button android:id="@+id/share_picture_camera_button"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:text="share" />
+
     </LinearLayout>
 
 </RelativeLayout>
