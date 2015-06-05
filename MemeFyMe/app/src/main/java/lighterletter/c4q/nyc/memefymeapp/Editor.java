@@ -211,6 +211,17 @@ public class Editor extends ActionBarActivity
         }
     }
 
+
+    @Override
+    public void onDemotivationalTextChanged(int pos, String text) {
+        switch (pos) {
+            case 0:
+                bigText = text;
+            case 1:
+                subText = text;
+        }
+    }
+
     @Override
     public void onSaveButtonClicked(View memeView, int width, int height) {
 
@@ -261,25 +272,6 @@ public class Editor extends ActionBarActivity
 
     }
 
-
-    public static Bitmap screenshotView(View v, int width, int height) {
-        Bitmap screenshot = Bitmap.createBitmap(width , height, Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(screenshot);
-        v.layout(0, 0, v.getLayoutParams().width, v.getLayoutParams().height);
-        v.draw(c);
-        return screenshot;
-    }
-
-    @Override
-    public void onDemotivationalTextChanged(int pos, String text) {
-        switch (pos) {
-            case 0:
-                bigText = text;
-            case 1:
-                subText = text;
-        }
-    }
-
     @Override
     public void onDemotivationalSaveButtonClicked(View memeView, int width, int height) {
 // TODO: update to link with John's save activity, create custom filenames
@@ -326,6 +318,14 @@ public class Editor extends ActionBarActivity
         intent.putExtra("meme", meme);
         intent.putExtra("filename", filename);
         startActivity(intent);
+    }
+
+    public static Bitmap screenshotView(View v, int width, int height) {
+        Bitmap screenshot = Bitmap.createBitmap(width , height, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(screenshot);
+        v.layout(0, 0, v.getLayoutParams().width, v.getLayoutParams().height);
+        v.draw(c);
+        return screenshot;
     }
 
     /**

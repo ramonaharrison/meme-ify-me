@@ -120,8 +120,9 @@ public class Demotivational extends Fragment {
                 bigTextView.setCursorVisible(false);
                 subTextView.setCursorVisible(false);
 
-
-                mListener.onDemotivationalSaveButtonClicked(memeView, width, height);
+                int vWidth = memeView.getWidth();
+                int vHeight = memeView.getHeight();
+                mListener.onDemotivationalSaveButtonClicked(memeView, vWidth, vHeight);
 
             }
         });
