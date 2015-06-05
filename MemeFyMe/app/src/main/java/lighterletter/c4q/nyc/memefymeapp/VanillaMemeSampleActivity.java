@@ -32,8 +32,18 @@ public class VanillaMemeSampleActivity extends ActionBarActivity {
 
         original.setImageURI(meme.getImageUri());
 
-        int reqWidth = original.getWidth();
-        int reqHeight = original.getHeight();
+
+        int reqWidth, reqHeight;
+        int oWidth = original.getMeasuredWidth();
+        int oHeight = original.getMeasuredHeight();
+
+        if (oHeight > oWidth) {
+            reqWidth = 600;
+            reqHeight = 800;
+        } else {
+            reqWidth = 800;
+            reqHeight = 600;
+        }
 
         Bitmap memePreview = decodeSampledBitmapFromFile("storage/emulated/0/Pictures/memefyme/" + filename, reqWidth, reqHeight);
 

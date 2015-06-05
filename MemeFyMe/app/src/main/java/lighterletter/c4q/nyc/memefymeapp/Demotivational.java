@@ -104,9 +104,6 @@ public class Demotivational extends Fragment {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(new File(imageUri.getPath()).getAbsolutePath(), options);
 
-        final int width = options.outWidth;
-        final int height = options.outHeight;
-
         backgroundImageView.setImageURI(imageUri);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -120,9 +117,10 @@ public class Demotivational extends Fragment {
                 bigTextView.setCursorVisible(false);
                 subTextView.setCursorVisible(false);
 
-                int vWidth = memeView.getWidth();
-                int vHeight = memeView.getHeight();
-                mListener.onDemotivationalSaveButtonClicked(memeView, vWidth, vHeight);
+                final int width = memeView.getWidth();
+                final int height = memeView.getHeight();
+
+                mListener.onDemotivationalSaveButtonClicked(memeView, width, height);
 
             }
         });

@@ -119,8 +119,8 @@ public class Vanilla extends Fragment {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(new File(imageUri.getPath()).getAbsolutePath(), options);
 
-        final int width = options.outWidth;
-        final int height = options.outHeight;
+//        final int width = options.outWidth;
+//        final int height = options.outHeight;
 
         backgroundImageView.setImageURI(imageUri);
 
@@ -137,6 +137,8 @@ public class Vanilla extends Fragment {
                 middleTextView.setCursorVisible(false);
                 bottomTextView.setCursorVisible(false);
 
+                final int width = memeView.getWidth();
+                final int height = memeView.getHeight();
 
                 mListener.onSaveButtonClicked(memeView, width, height);
 
