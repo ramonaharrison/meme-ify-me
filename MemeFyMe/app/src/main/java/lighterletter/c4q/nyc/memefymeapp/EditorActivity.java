@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Gallery;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -40,7 +39,6 @@ public class EditorActivity extends ActionBarActivity
 
     private Vanilla mVanillaFragment;
     private Demotivational mDemotivationalFragment;
-    private Custom mCustomFragment;
     private Uri imageUri;
     private boolean isNewProject;
     private String topText;
@@ -126,18 +124,7 @@ public class EditorActivity extends ActionBarActivity
                 fx.addToBackStack(null);
                 fx.commit();
                 break;
-            case 2:
-                mCustomFragment = Custom.newInstance("", "");
-                fx = getFragmentManager().beginTransaction();
-                fx.replace(R.id.container, mCustomFragment);
-                fx.addToBackStack(null);
-                fx.commit();
-                break;
-            case 3:
-                //TODO: correct class name to match how John named it
-                Intent gallery = new Intent(this, Gallery.class);
-                startActivity(gallery);
-                break;
+
         }
     }
 
@@ -149,12 +136,6 @@ public class EditorActivity extends ActionBarActivity
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
-            case 4:
-                mTitle = getString(R.string.title_section4);
                 break;
         }
     }
@@ -281,20 +262,15 @@ public class EditorActivity extends ActionBarActivity
         Bitmap sharable = screenshotView(memeView, width, height);
 
         Calendar calendar = Calendar.getInstance();
-        String date = "-" + calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
-
+        String date = "-" + calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
         String filename = "demotivational" + date + ".png";
-
         String directory = "memefyme";
 
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + directory;
-
         File outputDir= new File(path);
-
 
         outputDir.mkdirs();
         File newFile = new File(path+"/"+ filename);
-
 
         FileOutputStream out = null;
         try {
@@ -368,7 +344,6 @@ public class EditorActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }
 
 //public class RamonaActivity extends Activity {

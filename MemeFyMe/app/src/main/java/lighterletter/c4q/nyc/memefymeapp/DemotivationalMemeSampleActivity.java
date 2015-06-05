@@ -31,10 +31,17 @@ public class DemotivationalMemeSampleActivity extends ActionBarActivity {
 
         original.setImageURI(meme.getImageUri());
 
-        //Uri memeUri = Uri.parse("file:///storage/emulated/0/Pictures/memefyme/" + filename);
+        int reqWidth, reqHeight;
+        int oWidth = original.getMeasuredWidth();
+        int oHeight = original.getMeasuredHeight();
 
-        int reqWidth = original.getWidth();
-        int reqHeight = original.getHeight();
+        if (oHeight > oWidth) {
+            reqWidth = 600;
+            reqHeight = 800;
+        } else {
+            reqWidth = 800;
+            reqHeight = 600;
+        }
 
         Bitmap memePreview = decodeSampledBitmapFromFile("storage/emulated/0/Pictures/memefyme/" + filename, reqWidth, reqHeight);
 
