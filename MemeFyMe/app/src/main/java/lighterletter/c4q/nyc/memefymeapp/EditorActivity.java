@@ -215,7 +215,7 @@ public class EditorActivity extends ActionBarActivity
         Calendar calendar = Calendar.getInstance();
         String date = "-" + calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
 
-        String filename = "vanilla" + date + ".png";
+        String filename = "vanilla" + date + ".jpeg";
 
         String directory = "memefyme";
 
@@ -226,12 +226,12 @@ public class EditorActivity extends ActionBarActivity
 
         outputDir.mkdirs();
         File newFile = new File(path+"/"+ filename);
-
+        Uri resultUri = Uri.fromFile(newFile);
 
         FileOutputStream out = null;
         try {
             out = new FileOutputStream(newFile);
-            sharable.compress(Bitmap.CompressFormat.PNG, 100, out);
+            sharable.compress(Bitmap.CompressFormat.JPEG, 100, out);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -250,6 +250,7 @@ public class EditorActivity extends ActionBarActivity
         Intent intent = new Intent(this, VanillaMemeSampleActivity.class);
         intent.putExtra("meme", meme);
         intent.putExtra("filename", filename);
+        intent.putExtra("uri", resultUri);
         startActivity(intent);
 
     }
@@ -263,7 +264,7 @@ public class EditorActivity extends ActionBarActivity
 
         Calendar calendar = Calendar.getInstance();
         String date = "-" + calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
-        String filename = "demotivational" + date + ".png";
+        String filename = "demotivational" + date + ".jpeg";
         String directory = "memefyme";
 
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + directory;
@@ -275,7 +276,7 @@ public class EditorActivity extends ActionBarActivity
         FileOutputStream out = null;
         try {
             out = new FileOutputStream(newFile);
-            sharable.compress(Bitmap.CompressFormat.PNG, 100, out);
+            sharable.compress(Bitmap.CompressFormat.JPEG, 100, out);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

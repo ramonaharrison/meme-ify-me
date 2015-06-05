@@ -19,7 +19,7 @@ public class VanillaMemeSampleActivity extends ActionBarActivity {
 
     ImageView original, bitmap;
     TextView top, middle, bottom;
-    private Button sharePicture;
+    Button sharePicture;
 
 
     @Override
@@ -37,7 +37,7 @@ public class VanillaMemeSampleActivity extends ActionBarActivity {
         VanillaMeme meme = getIntent().getParcelableExtra("meme");
 
         final String filename = getIntent().getStringExtra("filename");
-
+        final Uri resultUri = getIntent().getExtras().getParcelable("uri");
         original.setImageURI(meme.getImageUri());
 
 
@@ -60,6 +60,16 @@ public class VanillaMemeSampleActivity extends ActionBarActivity {
         top.setText("Top text:  " + meme.getTopText());
         middle.setText("Middle text:  " + meme.getMiddleText());
         bottom.setText("Bottom text:  " + meme.getBottomText());
+
+        sharePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_STREAM, resultUri);
+                startActivity(Intent.createChooser(intent, "Share picture with..."));
+            }
+        });
 
     }
 
@@ -98,21 +108,11 @@ public class VanillaMemeSampleActivity extends ActionBarActivity {
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
 
-        sharePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("image/jpeg");
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(filename));
-                startActivity(Intent.createChooser(intent, "Share picture with..."));
-            }
-        });
 
-=======
+
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(filename, options);
->>>>>>> 7e4c376482bb5c26c78f262de1ffec6012a19f6a:MemeFyMe/app/src/main/java/lighterletter/c4q/nyc/memefymeapp/VanillaMemeSampleActivity.java
     }
 
 
