@@ -1,6 +1,8 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
+
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,10 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.FileNotFoundException;
 
-
-public class DummyActivity extends ActionBarActivity {
+public class VanillaMemeSampleActivity extends ActionBarActivity {
 
     ImageView original, bitmap;
     TextView top, middle, bottom;
@@ -40,18 +40,53 @@ public class DummyActivity extends ActionBarActivity {
 
         original.setImageURI(meme.getImageUri());
 
+        int reqWidth = original.getWidth();
+        int reqHeight = original.getHeight();
+
+        Bitmap memePreview = decodeSampledBitmapFromFile("storage/emulated/0/Pictures/memefyme/" + filename, reqWidth, reqHeight);
+
+        bitmap.setImageBitmap(memePreview);
+
         top.setText("Top text:  " + meme.getTopText());
         middle.setText("Middle text:  " + meme.getMiddleText());
         bottom.setText("Bottom text:  " + meme.getBottomText());
 
-        java.io.FileInputStream in = null;
-        try {
-            in = openFileInput(filename);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
         }
 
-        bitmap.setImageBitmap(BitmapFactory.decodeStream(in));
+        return inSampleSize;
+    }
+
+    public static Bitmap decodeSampledBitmapFromFile(String filename,
+                                                     int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(filename, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
 
         sharePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +98,11 @@ public class DummyActivity extends ActionBarActivity {
             }
         });
 
+=======
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(filename, options);
+>>>>>>> 7e4c376482bb5c26c78f262de1ffec6012a19f6a:MemeFyMe/app/src/main/java/lighterletter/c4q/nyc/memefymeapp/VanillaMemeSampleActivity.java
     }
 
 

@@ -19,6 +19,7 @@
     <string name="title_activity_dummy">DummyActivity</string>
     <string name="title_activity_main">MainActivity</string>
 
+
     <string name="main_activity_description">Welcome to MemeFyMe where your wildest meme making dreams come truuuuuuueeeeee!!</string>
 
     <string name="share_generic">Share</string>
@@ -32,6 +33,9 @@
     <string name="share_picture_description">Select a picture to share out to the social-verse:</string>
     <string name="share_picture_camera_button_text">Camera!</string>
     <string name="share_picture_thumbnail_content_description">Captured image to share</string>
+
+
+    <string name="title_activity_demotivational_meme_sample">DemotivationalMemeSampleActivity</string>
 
 </resources>
 
