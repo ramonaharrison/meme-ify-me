@@ -175,8 +175,6 @@ public class EditorActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-
-
     @Override
     public void onTextChanged(int pos, String text) {
         switch (pos) {
@@ -188,8 +186,6 @@ public class EditorActivity extends ActionBarActivity
                 bottomText = text;
         }
     }
-
-
 
     @Override
     public void onSaveButtonClicked(View memeView, int width, int height) {
@@ -250,44 +246,3 @@ public class EditorActivity extends ActionBarActivity
 
 
 }
-
-//public class RamonaActivity extends Activity {
-//    ImageView mImageView;
-//
-//    Uri imageUri;
-//    Bitmap bitmap;
-//
-//    Button buttonShare;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_ramona);
-//        mImageView = (ImageView) findViewById(R.id.imageView2);
-//
-//        buttonShare = (Button) findViewById(R.id.button_share);
-//
-//
-//        imageUri = getIntent().getExtras().getParcelable("uri");
-//
-//        try {
-//            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
-//        mImageView.setImageBitmap(bitmap);
-//
-//
-//        buttonShare.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Intent.ACTION_SEND);
-//                intent.setType("image/*");
-//                intent.putExtra(Intent.EXTRA_STREAM, imageUri);
-//                startActivity(intent);
-//            }
-//        });
-//
-//    }
-//}
