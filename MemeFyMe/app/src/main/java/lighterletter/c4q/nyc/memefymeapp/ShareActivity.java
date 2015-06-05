@@ -3,9 +3,9 @@ package lighterletter.c4q.nyc.memefymeapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,11 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.io.IOException;
 
 
-public class VanillaMemeSampleActivity extends ActionBarActivity {
+public class ShareActivity extends ActionBarActivity {
 
-    ImageView original, bitmap;
+    ImageView bitmap;
     TextView top, middle, bottom;
     Button sharePicture;
 
@@ -25,9 +26,9 @@ public class VanillaMemeSampleActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dummy);
+        setContentView(R.layout.activity_share);
 
-        original = (ImageView) findViewById(R.id.original);
+
         bitmap = (ImageView) findViewById(R.id.bitmap);
         top = (TextView) findViewById(R.id.top);
         middle = (TextView) findViewById(R.id.middle);
@@ -38,24 +39,16 @@ public class VanillaMemeSampleActivity extends ActionBarActivity {
 
         final String filename = getIntent().getStringExtra("filename");
         final Uri resultUri = getIntent().getExtras().getParcelable("uri");
-        original.setImageURI(meme.getImageUri());
 
 
-        int reqWidth, reqHeight;
-        int oWidth = original.getMeasuredWidth();
-        int oHeight = original.getMeasuredHeight();
-
-        if (oHeight > oWidth) {
-            reqWidth = 600;
-            reqHeight = 800;
-        } else {
-            reqWidth = 800;
-            reqHeight = 600;
+        Bitmap memePreview;
+        try {
+            memePreview = MediaStore.Images.Media.getBitmap(this.getContentResolver(), resultUri);
+            memePreview = Bitmap.createBitmap(memePreview);
+            bitmap.setImageBitmap(memePreview);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        Bitmap memePreview = decodeSampledBitmapFromFile("storage/emulated/0/Pictures/memefyme/" + filename, reqWidth, reqHeight);
-
-        bitmap.setImageBitmap(memePreview);
 
         top.setText("Top text:  " + meme.getTopText());
         middle.setText("Middle text:  " + meme.getMiddleText());
@@ -73,53 +66,11 @@ public class VanillaMemeSampleActivity extends ActionBarActivity {
 
     }
 
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-    public static Bitmap decodeSampledBitmapFromFile(String filename,
-                                                     int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(filename, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-
-
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeFile(filename, options);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_dummy, menu);
+        getMenuInflater().inflate(R.menu.menu_share, menu);
         return true;
     }
 

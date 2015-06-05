@@ -16,7 +16,7 @@
     <string name="action_example">Example action</string>
     <string name="hello_blank_fragment"></string>
     <string name="save_button">Save</string>
-    <string name="title_activity_dummy">DummyActivity</string>
+    <string name="title_activity_share">Share Activity</string>
     <string name="title_activity_main">MainActivity</string>
 
 

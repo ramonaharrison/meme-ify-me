@@ -25,7 +25,7 @@ import java.util.Calendar;
 
 
 public class EditorActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, Vanilla.OnFragmentInteractionListener, Demotivational.OnFragmentInteractionListener, Custom.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, OnFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -37,8 +37,8 @@ public class EditorActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
-    private Vanilla mVanillaFragment;
-    private Demotivational mDemotivationalFragment;
+    private VanillaFragment mVanillaFragmentFragment;
+    private DemotivationalFragment mDemotivationalFragmentFragment;
     private Uri imageUri;
     private boolean isNewProject;
     private String topText;
@@ -110,17 +110,17 @@ public class EditorActivity extends ActionBarActivity
 
         switch (position) {
             case 0:
-                mVanillaFragment = Vanilla.newInstance(imageUri, isNewProject, topText, middleText, bottomText);
+                mVanillaFragmentFragment = VanillaFragment.newInstance(imageUri, isNewProject, topText, middleText, bottomText);
                 fx = getFragmentManager().beginTransaction();
-                fx.replace(R.id.container, mVanillaFragment);
+                fx.replace(R.id.container, mVanillaFragmentFragment);
                 fx.addToBackStack(null);
                 fx.commit();
 
                 break;
             case 1:
-                mDemotivationalFragment = Demotivational.newInstance(imageUri, isNewProject, bigText, subText);
+                mDemotivationalFragmentFragment = DemotivationalFragment.newInstance(imageUri, isNewProject, bigText, subText);
                 fx = getFragmentManager().beginTransaction();
-                fx.replace(R.id.container, mDemotivationalFragment);
+                fx.replace(R.id.container, mDemotivationalFragmentFragment);
                 fx.addToBackStack(null);
                 fx.commit();
                 break;
@@ -176,10 +176,7 @@ public class EditorActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
-    }
 
     @Override
     public void onTextChanged(int pos, String text) {
@@ -194,15 +191,6 @@ public class EditorActivity extends ActionBarActivity
     }
 
 
-    @Override
-    public void onDemotivationalTextChanged(int pos, String text) {
-        switch (pos) {
-            case 0:
-                bigText = text;
-            case 1:
-                subText = text;
-        }
-    }
 
     @Override
     public void onSaveButtonClicked(View memeView, int width, int height) {
@@ -216,13 +204,9 @@ public class EditorActivity extends ActionBarActivity
         String date = "-" + calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
 
         String filename = "vanilla" + date + ".jpeg";
-
         String directory = "memefyme";
-
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + directory;
-
         File outputDir= new File(path);
-
 
         outputDir.mkdirs();
         File newFile = new File(path+"/"+ filename);
@@ -247,7 +231,7 @@ public class EditorActivity extends ActionBarActivity
         // Build meme object
         VanillaMeme meme = new VanillaMeme(imageUri, topText, middleText, bottomText);
 
-        Intent intent = new Intent(this, VanillaMemeSampleActivity.class);
+        Intent intent = new Intent(this, ShareActivity.class);
         intent.putExtra("meme", meme);
         intent.putExtra("filename", filename);
         intent.putExtra("uri", resultUri);
@@ -255,48 +239,7 @@ public class EditorActivity extends ActionBarActivity
 
     }
 
-    @Override
-    public void onDemotivationalSaveButtonClicked(View memeView, int width, int height) {
-// TODO: update to link with John's save activity, create custom filenames
 
-        // Take a screenshot
-        Bitmap sharable = screenshotView(memeView, width, height);
-
-        Calendar calendar = Calendar.getInstance();
-        String date = "-" + calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
-        String filename = "demotivational" + date + ".jpeg";
-        String directory = "memefyme";
-
-        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + directory;
-        File outputDir= new File(path);
-
-        outputDir.mkdirs();
-        File newFile = new File(path+"/"+ filename);
-
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(newFile);
-            sharable.compress(Bitmap.CompressFormat.JPEG, 100, out);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // Build meme object
-        DemotivationalMeme meme = new DemotivationalMeme(imageUri, bigText, subText);
-
-        Intent intent = new Intent(this, DemotivationalMemeSampleActivity.class);
-        intent.putExtra("meme", meme);
-        intent.putExtra("filename", filename);
-        startActivity(intent);
-    }
 
     public static Bitmap screenshotView(View v, int width, int height) {
         Bitmap screenshot = Bitmap.createBitmap(width , height, Bitmap.Config.ARGB_8888);
@@ -306,45 +249,7 @@ public class EditorActivity extends ActionBarActivity
         return screenshot;
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_editor, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((EditorActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-    }
 }
 
 //public class RamonaActivity extends Activity {
