@@ -3,12 +3,12 @@ package lighterletter.c4q.nyc.memefymeapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -17,13 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Gallery;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
 
 
-public class Editor extends ActionBarActivity
+public class EditorActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, Vanilla.OnFragmentInteractionListener, Demotivational.OnFragmentInteractionListener, Custom.OnFragmentInteractionListener {
 
     /**
@@ -38,30 +39,36 @@ public class Editor extends ActionBarActivity
 
     private Vanilla mVanillaFragment;
     private Demotivational mDemotivationalFragment;
-    private Custom mCustomFragment;
     private Uri imageUri;
     private boolean isNewProject;
     private String topText;
     private String middleText;
     private String bottomText;
+    private String bigText;
+    private String subText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            // TODO: grab unique imageId + new project boolean from Intent
+
+            // TODO: new project boolean from Intent
             imageUri = getIntent().getParcelableExtra("uri");
             isNewProject = true;
             topText = "";
             middleText = "";
             bottomText = "";
+            bigText="";
+            subText="";
         } else {
             imageUri = savedInstanceState.getParcelable("imageUri");
             isNewProject = savedInstanceState.getBoolean("isNewProject");
             topText = savedInstanceState.getString("topText");
             middleText = savedInstanceState.getString("middleText");
             bottomText = savedInstanceState.getString("bottomText");
+            bigText = savedInstanceState.getString("bigText");
+            subText = savedInstanceState.getString("subText");
         }
 
         setContentView(R.layout.activity_editor);
@@ -92,6 +99,8 @@ public class Editor extends ActionBarActivity
         outState.putString("topText", topText);
         outState.putString("middleText", middleText);
         outState.putString("bottomText", bottomText);
+        outState.putString("bigText", bigText);
+        outState.putString("subText", subText);
     }
 
     @Override
@@ -109,24 +118,13 @@ public class Editor extends ActionBarActivity
 
                 break;
             case 1:
-                mDemotivationalFragment = Demotivational.newInstance("", "");
+                mDemotivationalFragment = Demotivational.newInstance(imageUri, isNewProject, bigText, subText);
                 fx = getFragmentManager().beginTransaction();
                 fx.replace(R.id.container, mDemotivationalFragment);
                 fx.addToBackStack(null);
                 fx.commit();
                 break;
-            case 2:
-                mCustomFragment = Custom.newInstance("", "");
-                fx = getFragmentManager().beginTransaction();
-                fx.replace(R.id.container, mCustomFragment);
-                fx.addToBackStack(null);
-                fx.commit();
-                break;
-            case 3:
-                //TODO: correct class name to match how John named it
-                Intent gallery = new Intent(this, Gallery.class);
-                startActivity(gallery);
-                break;
+
         }
     }
 
@@ -138,12 +136,6 @@ public class Editor extends ActionBarActivity
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
-            case 4:
-                mTitle = getString(R.string.title_section4);
                 break;
         }
     }
@@ -201,19 +193,45 @@ public class Editor extends ActionBarActivity
         }
     }
 
+
+    @Override
+    public void onDemotivationalTextChanged(int pos, String text) {
+        switch (pos) {
+            case 0:
+                bigText = text;
+            case 1:
+                subText = text;
+        }
+    }
+
     @Override
     public void onSaveButtonClicked(View memeView, int width, int height) {
 
-        // TODO: update to link with John's save activity, create custom filenames
+        // TODO: update to link with John's save activity
 
         // Take a screenshot
         Bitmap sharable = screenshotView(memeView, width, height);
 
-        String filename = "vanilla.png";
+        Calendar calendar = Calendar.getInstance();
+        String date = "-" + calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
+
+        String filename = "vanilla" + date + ".jpeg";
+
+        String directory = "memefyme";
+
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + directory;
+
+        File outputDir= new File(path);
+
+
+        outputDir.mkdirs();
+        File newFile = new File(path+"/"+ filename);
+        Uri resultUri = Uri.fromFile(newFile);
+
         FileOutputStream out = null;
         try {
-            out = openFileOutput(filename, Context.MODE_PRIVATE);
-            sharable.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out = new FileOutputStream(newFile);
+            sharable.compress(Bitmap.CompressFormat.JPEG, 100, out);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -229,13 +247,56 @@ public class Editor extends ActionBarActivity
         // Build meme object
         VanillaMeme meme = new VanillaMeme(imageUri, topText, middleText, bottomText);
 
-        Intent intent = new Intent(this, DummyActivity.class);
+        Intent intent = new Intent(this, VanillaMemeSampleActivity.class);
         intent.putExtra("meme", meme);
         intent.putExtra("filename", filename);
+        intent.putExtra("uri", resultUri);
         startActivity(intent);
 
     }
 
+    @Override
+    public void onDemotivationalSaveButtonClicked(View memeView, int width, int height) {
+// TODO: update to link with John's save activity, create custom filenames
+
+        // Take a screenshot
+        Bitmap sharable = screenshotView(memeView, width, height);
+
+        Calendar calendar = Calendar.getInstance();
+        String date = "-" + calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
+        String filename = "demotivational" + date + ".jpeg";
+        String directory = "memefyme";
+
+        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + directory;
+        File outputDir= new File(path);
+
+        outputDir.mkdirs();
+        File newFile = new File(path+"/"+ filename);
+
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(newFile);
+            sharable.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Build meme object
+        DemotivationalMeme meme = new DemotivationalMeme(imageUri, bigText, subText);
+
+        Intent intent = new Intent(this, DemotivationalMemeSampleActivity.class);
+        intent.putExtra("meme", meme);
+        intent.putExtra("filename", filename);
+        startActivity(intent);
+    }
 
     public static Bitmap screenshotView(View v, int width, int height) {
         Bitmap screenshot = Bitmap.createBitmap(width , height, Bitmap.Config.ARGB_8888);
@@ -280,9 +341,49 @@ public class Editor extends ActionBarActivity
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((Editor) activity).onSectionAttached(
+            ((EditorActivity) activity).onSectionAttached(
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }
+
+//public class RamonaActivity extends Activity {
+//    ImageView mImageView;
+//
+//    Uri imageUri;
+//    Bitmap bitmap;
+//
+//    Button buttonShare;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_ramona);
+//        mImageView = (ImageView) findViewById(R.id.imageView2);
+//
+//        buttonShare = (Button) findViewById(R.id.button_share);
+//
+//
+//        imageUri = getIntent().getExtras().getParcelable("uri");
+//
+//        try {
+//            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        bitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+//        mImageView.setImageBitmap(bitmap);
+//
+//
+//        buttonShare.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_SEND);
+//                intent.setType("image/*");
+//                intent.putExtra(Intent.EXTRA_STREAM, imageUri);
+//                startActivity(intent);
+//            }
+//        });
+//
+//    }
+//}
