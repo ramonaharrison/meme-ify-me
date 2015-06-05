@@ -2,9 +2,11 @@ package lighterletter.c4q.nyc.memefymeapp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +16,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.IOException;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link VanillaFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link VanillaFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -123,6 +126,15 @@ public class VanillaFragment extends Fragment {
 //        final int height = options.outHeight;
 
         backgroundImageView.setImageURI(imageUri);
+
+//        try {
+//            Bitmap picture = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+//            backgroundImageView.setImageBitmap(picture);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

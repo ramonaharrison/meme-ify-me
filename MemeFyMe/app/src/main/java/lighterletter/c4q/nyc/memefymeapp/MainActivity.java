@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-
 public class MainActivity extends ActionBarActivity {
 
     Button buttonCamera;
@@ -88,15 +87,15 @@ public class MainActivity extends ActionBarActivity {
         }
         // after taking a picture, if the user presses OK button
         else if (requestCode == REQUEST_CODE_TAKE_PHOTO && resultCode == RESULT_OK) {
+            //imageUri = (Uri) getIntent().getExtras().get(MediaStore.EXTRA_OUTPUT);
             Uri selectedImage = imageUri;
-            addPictureToGallery(selectedImage);
             getContentResolver().notifyChange(selectedImage, null);
+            addPictureToGallery(selectedImage);
             Intent ramona = new Intent(getApplicationContext(), EditorActivity.class);
             ramona.putExtra("uri", selectedImage);
             startActivity(ramona);
 
         }
-
 
     }
 

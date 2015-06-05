@@ -52,7 +52,6 @@ public class EditorActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-
             // TODO: new project boolean from Intent
             imageUri = getIntent().getParcelableExtra("uri");
             isNewProject = true;
