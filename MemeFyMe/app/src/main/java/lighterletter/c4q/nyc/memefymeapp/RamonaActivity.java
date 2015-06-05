@@ -1,5 +1,6 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -28,7 +29,13 @@ public class RamonaActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_ramona);
+        ActionBar actionBar;
+        actionBar = getActionBar();
+        actionBar.hide();
+
+
         mImageView = (ImageView) findViewById(R.id.imageView2);
 
         buttonShare = (Button) findViewById(R.id.button_share);
@@ -56,4 +63,6 @@ public class RamonaActivity extends Activity {
         });
 
     }
+
+
 }
