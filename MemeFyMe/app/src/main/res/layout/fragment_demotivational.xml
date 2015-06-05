@@ -15,23 +15,24 @@
         <LinearLayout
             android:id="@+id/demotivationalBackground"
             android:orientation="vertical"
+            android:background="@android:color/black"
             android:gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
             <ImageView
                 android:id="@+id/demotivationalBackgroundImage"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="#FFFFFF"
                 android:padding="1dp"
-                android:layout_margin="5dp"/>
+                android:layout_margin="50dp"/>
 
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
+                android:background="@android:color/black"
                 android:layout_marginTop="10dp"
                 android:inputType="textMultiLine"
                 android:gravity="center"
@@ -42,7 +43,7 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@null"
+                android:background="@android:color/black"
                 android:gravity="center"
                 android:inputType="textMultiLine"
                 android:textColor="@android:color/white"

@@ -51,7 +51,6 @@ public class Demotivational extends Fragment {
      *
      * @return A new instance of fragment Demotivational.
      */
-    // TODO: Rename and change types and number of parameters
     public static Demotivational newInstance(Uri imageUri, boolean isNewProject, String bigText, String subText) {
         Demotivational fragment = new Demotivational();
         Bundle args = new Bundle();

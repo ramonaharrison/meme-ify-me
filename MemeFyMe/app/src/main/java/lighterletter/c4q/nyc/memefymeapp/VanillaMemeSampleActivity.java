@@ -1,6 +1,5 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,8 +8,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.io.FileNotFoundException;
 
 
 public class VanillaMemeSampleActivity extends ActionBarActivity {
@@ -35,18 +32,16 @@ public class VanillaMemeSampleActivity extends ActionBarActivity {
 
         original.setImageURI(meme.getImageUri());
 
+        int reqWidth = original.getWidth();
+        int reqHeight = original.getHeight();
+
+        Bitmap memePreview = decodeSampledBitmapFromFile("storage/emulated/0/Pictures/memefyme/" + filename, reqWidth, reqHeight);
+
+        bitmap.setImageBitmap(memePreview);
+
         top.setText("Top text:  " + meme.getTopText());
         middle.setText("Middle text:  " + meme.getMiddleText());
         bottom.setText("Bottom text:  " + meme.getBottomText());
-
-        java.io.FileInputStream in = null;
-        try {
-            in = openFileInput(filename);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        bitmap.setImageBitmap(BitmapFactory.decodeStream(in));
 
     }
 
@@ -73,20 +68,20 @@ public class VanillaMemeSampleActivity extends ActionBarActivity {
         return inSampleSize;
     }
 
-    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
-                                                         int reqWidth, int reqHeight) {
+    public static Bitmap decodeSampledBitmapFromFile(String filename,
+                                                     int reqWidth, int reqHeight) {
 
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
+        BitmapFactory.decodeFile(filename, options);
 
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
+        return BitmapFactory.decodeFile(filename, options);
     }
 
 
