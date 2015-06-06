@@ -2,8 +2,10 @@ package lighterletter.c4q.nyc.memefymeapp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,11 +98,13 @@ public class VanillaFragment extends Fragment {
             bottomText = "";
         }
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vanilla, container, false);
 
@@ -115,6 +120,11 @@ public class VanillaFragment extends Fragment {
         topTextView.setText(topText);
         middleTextView.setText(middleText);
         bottomTextView.setText(bottomText);
+
+        //Give font bold since the Asset Manager doesn't cooperate
+        topTextView.setTypeface(Typeface.DEFAULT_BOLD);
+        middleTextView.setTypeface(Typeface.DEFAULT_BOLD);
+        bottomTextView.setTypeface(Typeface.DEFAULT_BOLD);
 
         // Set up image to be edited
 
@@ -160,6 +170,7 @@ public class VanillaFragment extends Fragment {
         return view;
 
     }
+
 
     @Override
     public void onPause() {

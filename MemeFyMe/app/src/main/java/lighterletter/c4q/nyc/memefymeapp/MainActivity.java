@@ -72,12 +72,6 @@ public class MainActivity extends ActionBarActivity {
         TextView jvtv5 = (TextView)findViewById(R.id.vollkorn_700a);
         jvtv5.setTypeface(jvface5);
 
-        //the vollkorn regualr font (for title)
-//        Typeface jvface6 = Typeface.createFromAsset(getAssets(),"Vollkorn_regular.ttf");
-//        TextView jvtv6 = (TextView)findViewById(R.id.main_share_button);
-//        jvtv6.setTypeface(jvface6);
-
-
 
 // create camera and gallery buttons
         buttonCamera = (ImageButton) findViewById(R.id.button_camera_luke);

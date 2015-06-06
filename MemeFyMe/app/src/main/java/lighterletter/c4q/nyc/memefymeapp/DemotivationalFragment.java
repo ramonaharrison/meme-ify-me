@@ -3,6 +3,7 @@ package lighterletter.c4q.nyc.memefymeapp;
 import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;

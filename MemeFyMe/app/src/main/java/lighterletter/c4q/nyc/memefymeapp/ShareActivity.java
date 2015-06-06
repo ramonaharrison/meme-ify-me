@@ -3,6 +3,7 @@ package lighterletter.c4q.nyc.memefymeapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.io.IOException;
+
 
 
 public class ShareActivity extends ActionBarActivity {
@@ -34,6 +36,17 @@ public class ShareActivity extends ActionBarActivity {
         middle = (TextView) findViewById(R.id.middle);
         bottom = (TextView) findViewById(R.id.bottom);
         sharePicture = (Button)findViewById(R.id.share_picture_share_button);
+
+        //Making the Font
+        Typeface jvface4 = Typeface.createFromAsset(getAssets(),"Vollkorn_700.ttf");
+        sharePicture.setTypeface(jvface4);
+
+        //the vollkorn regualr font (for title)
+        Typeface jvface6 = Typeface.createFromAsset(getAssets(),"Vollkorn_regular.ttf");
+        top.setTypeface(jvface6);
+        middle.setTypeface(jvface6);
+        bottom.setTypeface(jvface6);
+
 
         VanillaMeme meme = getIntent().getParcelableExtra("meme");
 
