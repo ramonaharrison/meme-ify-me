@@ -17,6 +17,7 @@ public class MainActivity extends ActionBarActivity {
 
     Button buttonCamera;
     Button buttonGallery;
+    Button buttonTemplate;
 
 
     static final int REQUEST_CODE_TAKE_PHOTO = 1;
@@ -45,7 +46,21 @@ public class MainActivity extends ActionBarActivity {
                 selectPhoto(v);
             }
         });
+
+        buttonTemplate = (Button) findViewById(R.id.button_meme_luke);
+        buttonTemplate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectTemplate(v);
+            }
+        });
     }
+
+    private void selectTemplate(View view) {
+        Intent intent = new Intent(getApplicationContext(), MemeTemplateActivity.class);
+        startActivity(intent);
+    }
+
 
     // create a file to save the picture and start camera activity.
     private void takePhoto(View v) {
