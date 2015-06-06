@@ -118,7 +118,6 @@ public class EditorActivity extends ActionBarActivity
                 fx.replace(R.id.container, mVanillaFragmentFragment);
                 fx.addToBackStack(null);
                 fx.commit();
-
                 break;
             case 1:
                 mDemotivationalFragmentFragment = DemotivationalFragment.newInstance(imageUri, isNewProject, bigText, subText);
