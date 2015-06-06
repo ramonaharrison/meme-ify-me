@@ -33,20 +33,9 @@
             android:label="@string/title_activity_editor" >
         </activity>
         <activity
-            android:name=".VanillaMemeSampleActivity"
-            android:label="@string/title_activity_dummy" >
+            android:name=".ShareActivity"
+            android:label="@string/title_activity_share" >
         </activity>
-
-        <activity android:name=".SharePictureActivity"
-            android:label="@string/title_share"
-            android:parentActivityName=".EditorActivity">
-
-          </activity>
-        <activity
-            android:name=".DemotivationalMemeSampleActivity"
-            android:label="@string/title_activity_demotivational_meme_sample" >
-        </activity>
-
 
 
 
