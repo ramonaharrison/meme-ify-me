@@ -37,6 +37,10 @@
             android:label="@string/title_activity_share" >
         </activity>
 
+        <activity
+            android:name=".MemeTemplateActivity"
+            android:label="@string/title_activity_template" >
+        </activity>
 
 
     </application>

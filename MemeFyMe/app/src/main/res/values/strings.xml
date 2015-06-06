@@ -18,6 +18,7 @@
     <string name="save_button">Save</string>
     <string name="title_activity_share">Share Activity</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_template">Meme Template</string>
 
 
     <string name="main_activity_description">Welcome to MemeFyMe where your wildest meme making dreams come truuuuuuueeeeee!!</string>
