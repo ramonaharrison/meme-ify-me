@@ -1,7 +1,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black" tools:context="lighterletter.c4q.nyc.memefymeapp.VanillaFragment">
+    android:background="#0D0630"
+    tools:context="lighterletter.c4q.nyc.memefymeapp.Vanilla">
+
 
 
     <FrameLayout
@@ -62,9 +65,11 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_gravity="bottom|right"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
         android:text="@string/save_button"
+        android:background="@drawable/jv_button"
+        android:textColor="#0D0630"
         android:id="@+id/save_button" />
 
 </FrameLayout>
