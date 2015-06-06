@@ -10,8 +10,7 @@
 
     <string name="title_section1">Vanilla Meme</string>
     <string name="title_section2">Demotivational Poster</string>
-    <string name="title_section3">Custom Meme Editor</string>
-    <string name="title_section4">Gallery</string>
+    <string name="title_section3">Custom Meme</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

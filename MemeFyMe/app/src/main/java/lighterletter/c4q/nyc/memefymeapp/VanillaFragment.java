@@ -2,11 +2,9 @@ package lighterletter.c4q.nyc.memefymeapp;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.io.File;
-import java.io.IOException;
 
 
 /**
@@ -122,20 +119,7 @@ public class VanillaFragment extends Fragment {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(new File(imageUri.getPath()).getAbsolutePath(), options);
 
-//        final int width = options.outWidth;
-//        final int height = options.outHeight;
-
         backgroundImageView.setImageURI(imageUri);
-
-//        try {
-//            Bitmap picture = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
-//            backgroundImageView.setImageBitmap(picture);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
-
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 

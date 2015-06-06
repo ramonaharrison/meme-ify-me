@@ -1,7 +1,5 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,18 +10,14 @@ import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 
@@ -42,6 +36,7 @@ public class EditorActivity extends ActionBarActivity
 
     private VanillaFragment mVanillaFragmentFragment;
     private DemotivationalFragment mDemotivationalFragmentFragment;
+    private CustomFragment mCustomFragment;
     private Uri imageUri;
     private boolean isNewProject;
     private String topText;
@@ -56,7 +51,6 @@ public class EditorActivity extends ActionBarActivity
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-            // TODO: new project boolean from Intent
             imageUri = getIntent().getParcelableExtra("uri");
             isNewProject = true;
             topText = "";
@@ -126,6 +120,13 @@ public class EditorActivity extends ActionBarActivity
                 fx.addToBackStack(null);
                 fx.commit();
                 break;
+            case 2:
+                mCustomFragment = CustomFragment.newInstance(imageUri, isNewProject, bottomText);
+                fx = getFragmentManager().beginTransaction();
+                fx.replace(R.id.container, mCustomFragment);
+                fx.addToBackStack(null);
+                fx.commit();
+                break;
 
         }
     }
@@ -138,6 +139,9 @@ public class EditorActivity extends ActionBarActivity
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
+                break;
+            case 3:
+                mTitle = getString(R.string.title_section3);
                 break;
         }
     }

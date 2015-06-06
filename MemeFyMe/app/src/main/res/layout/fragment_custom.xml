@@ -1,10 +1,70 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0D0630"
     tools:context="lighterletter.c4q.nyc.memefymeapp.CustomFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+
+    <FrameLayout
+        android:id="@+id/customView"
+        android:layout_gravity="center"
+        android:background="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/customBackground"
+            android:orientation="vertical"
+            android:background="#000000"
+            android:gravity="center"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <FrameLayout
+                android:id="@+id/pictureFrame"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/customBackgroundImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:padding="1dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"/>
+
+                <lighterletter.c4q.nyc.memefymeapp.DrawingView
+                    android:id="@+id/drawingLayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </FrameLayout>
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:layout_marginTop="10dp"
+                android:inputType="textMultiLine"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/customBottomText" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <Button
+        android:background="@drawable/jv_button"
+        android:textColor="#0D0630"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:text="@string/save_button"
+        android:id="@+id/custom_save_button" />
 
 </FrameLayout>

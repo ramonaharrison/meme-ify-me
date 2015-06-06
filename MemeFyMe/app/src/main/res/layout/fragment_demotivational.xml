@@ -12,11 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-
         <LinearLayout
             android:id="@+id/demotivationalBackground"
             android:orientation="vertical"
-            android:background="#0D0630"
+            android:background="#000000"
             android:gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
@@ -35,7 +34,7 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="#0D0630"
+                android:background="#000000"
                 android:layout_marginTop="10dp"
                 android:inputType="textMultiLine"
                 android:gravity="center"
@@ -46,7 +45,7 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/black"
+                android:background="#000000"
                 android:gravity="center"
                 android:inputType="textMultiLine"
                 android:textColor="@android:color/white"
