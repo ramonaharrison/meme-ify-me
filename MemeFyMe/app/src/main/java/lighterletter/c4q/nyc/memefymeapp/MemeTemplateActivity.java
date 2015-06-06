@@ -48,6 +48,9 @@ public class MemeTemplateActivity extends ActionBarActivity {
                     case 4:
                         name = R.drawable.toodamnhigh;
                         break;
+                    case 5:
+                        name = R.drawable.xeverywhere;
+                        break;
                 }
 
                 Uri path = Uri.parse("android.resource://lighterletter.c4q.nyc.memefymeapp/" + name);

@@ -52,7 +52,8 @@ public class ImageAdapter extends BaseAdapter {
             R.drawable.onedoesnotsimply,
             R.drawable.successkid,
             R.drawable.thatwouldbegreat,
-            R.drawable.toodamnhigh
+            R.drawable.toodamnhigh,
+            R.drawable.xeverywhere
 
     };
 }
