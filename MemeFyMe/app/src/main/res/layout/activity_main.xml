@@ -1,53 +1,101 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#0D0630"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0D0630"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity" >
 
-    <Button
+         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0D0630"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/vollkorn_700italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:text="@string/jv_memefy"
+            android:theme="@style/jv_titletext" />
+
+        <TextView
+            android:id="@+id/vollkorn_700"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/jv_memefy_description1"
+            android:theme="@style/jv_appdescription" />
+        <TextView
+            android:id="@+id/vollkorn_700a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="@string/jv_memefy_description2"
+            android:theme="@style/jv_appdescription" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Camera"
-        android:id="@+id/button_camera_luke" />
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center">
+
+        <ImageButton
+            android:id="@+id/button_camera_luke"
+            android:src="@drawable/ic_action_jvcamera"
+            android:theme="@style/jv_button"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:background="#61BFAC"
+
+             />
 
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gallery"
-        android:id="@+id/button_gallery_luke" />
+        <ImageButton
+            android:id="@+id/button_gallery_luke"
+            android:src="@drawable/ic_action_gallery"
+            android:theme="@style/jv_button"
+            android:layout_marginLeft="20dp"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:background="#61BFAC"
+             />
 
+        <Button
+            android:id="@+id/button_meme_luke"
+            android:background="@drawable/jv_button"
+            android:theme="@style/jv_button"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="My Meme" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My Meme"
-        android:id="@+id/button_meme_luke" />
+        <Button android:id="@+id/main_share_button"
+            android:background="@drawable/jv_button"
+            android:theme="@style/jv_button"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/title_start" />
 
-
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:id="@+id/imageView" />
-
-
-<TextView android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:text="@string/main_activity_description" />
-
-<Button android:id="@+id/main_share_button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/title_start" />
-
-
+    </LinearLayout>
 
 </LinearLayout>
+
+</ScrollView>
 
 

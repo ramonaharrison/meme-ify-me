@@ -4,6 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#0D0630"
     tools:context="lighterletter.c4q.nyc.memefymeapp.VanillaMemeSampleActivity">
 
     <LinearLayout
@@ -27,6 +28,9 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="3"
+            android:textColor="#0D0630"
+            android:background="#5A919E"
+
             android:text="New Text"
             android:id="@+id/top" />
 
@@ -34,6 +38,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="3"
+            android:textColor="#61BFAC"
+            android:background="#384E77"
             android:text="New Text"
             android:id="@+id/middle" />
 
@@ -41,12 +47,16 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="3"
+            android:textColor="#5A919E"
+            android:background="#18314F"
             android:text="New Text"
             android:id="@+id/bottom" />
 
         <Button android:id="@+id/share_picture_share_button"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/jv_button"
+            android:textColor="#0D0630"
             android:text="@string/title_share" />
 
     </LinearLayout>
