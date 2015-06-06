@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +22,9 @@ import android.view.ViewGroup;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 public class EditorActivity extends ActionBarActivity
@@ -46,6 +49,7 @@ public class EditorActivity extends ActionBarActivity
     private String bottomText;
     private String bigText;
     private String subText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,18 +191,19 @@ public class EditorActivity extends ActionBarActivity
         }
     }
 
+
+
+
+
     @Override
     public void onSaveButtonClicked(View memeView, int width, int height) {
-
-        // TODO: update to link with John's save activity
 
         // Take a screenshot
         Bitmap sharable = screenshotView(memeView, width, height);
 
-        Calendar calendar = Calendar.getInstance();
-        String date = "-" + calendar.get(Calendar.DAY_OF_MONTH) + calendar.get(Calendar.MONTH) + calendar.get(Calendar.YEAR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.HOUR) + calendar.get(Calendar.MINUTE);
+        String imageFileName = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss").format(new Date());
 
-        String filename = "vanilla" + date + ".jpeg";
+        String filename = "vanilla" + imageFileName + ".jpeg";
         String directory = "memefyme";
         String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + directory;
         File outputDir= new File(path);
@@ -206,6 +211,10 @@ public class EditorActivity extends ActionBarActivity
         outputDir.mkdirs();
         File newFile = new File(path+"/"+ filename);
         Uri resultUri = Uri.fromFile(newFile);
+
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(resultUri);
+        this.sendBroadcast(mediaScanIntent);
 
         FileOutputStream out = null;
         try {
@@ -228,7 +237,7 @@ public class EditorActivity extends ActionBarActivity
 
         Intent intent = new Intent(this, ShareActivity.class);
         intent.putExtra("meme", meme);
-        intent.putExtra("filename", filename);
+        //intent.putExtra("filename", filename);
         intent.putExtra("uri", resultUri);
         startActivity(intent);
 
