@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MemeFyMeApp</string>
 
     <string name="jv_memefy">MemeFy Me</string>
-    <string name="jv_memefy_description">Welcome to Memefy Me, an app to create Memes! Please choose the
-    following to begin build you own Meme:</string>
+    <string name="jv_memefy_description1">Welcome to Memefy Me, an app to create Memes! OOH!!</string>
+    <string name="jv_memefy_description2">Please choose the following to build your own Meme:</string>
+    <string name="app_name">MemeFyMe</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_editor">Editor</string>
 
@@ -22,4 +23,24 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="nul"></string>
     <string name="nul2">Share</string>
+
+
+    <string name="main_activity_description">Welcome to MemeFyMe where your wildest meme making dreams come truuuuuuueeeeee!!</string>
+
+    <string name="share_generic">Share</string>
+
+    <string name="title_start">Begin!</string>
+    <string name="share_text_description">Enter anything you would like to
+        share on your phone below:</string>
+    <string name="share_text_hint">Type here</string>
+
+    <string name="title_share">Share</string>
+    <string name="share_picture_description">Select a picture to share out to the social-verse:</string>
+    <string name="share_picture_camera_button_text">Camera!</string>
+    <string name="share_picture_thumbnail_content_description">Captured image to share</string>
+
+
+    <string name="title_activity_demotivational_meme_sample">DemotivationalMemeSampleActivity</string>
+
 </resources>
+

@@ -20,4 +20,9 @@
         android:layout_gravity="center_horizontal"
         android:contentDescription="@string/nul2"
         android:elegantTextHeight="true" />
+
+<!-- -   android:text="Share"
+        android:id="@+id/share_picture_share_button"
+        android:layout_gravity="center_horizontal" - -->
+
 </LinearLayout>
