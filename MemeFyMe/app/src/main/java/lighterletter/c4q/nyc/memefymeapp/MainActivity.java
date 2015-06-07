@@ -117,7 +117,7 @@ public class MainActivity extends ActionBarActivity {
         String imageFileName = new SimpleDateFormat("yyyy-MM-dd-HH.mm.ss").format(new Date());
         File photoFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), imageFileName + ".jpeg");
         imageUri = Uri.fromFile(photoFile);
-        intent.setData(imageUri);
+
         intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(intent, REQUEST_CODE_TAKE_PHOTO);
 

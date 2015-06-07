@@ -2,9 +2,11 @@ package lighterletter.c4q.nyc.memefymeapp;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -115,11 +118,20 @@ public class VanillaFragment extends Fragment {
 
         // Set up image to be edited
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(new File(imageUri.getPath()).getAbsolutePath(), options);
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inJustDecodeBounds = true;
+//        BitmapFactory.decodeFile(new File(imageUri.getPath()).getAbsolutePath(), options);
 
-        backgroundImageView.setImageURI(imageUri);
+        try {
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
+            bitmap = Bitmap.createScaledBitmap(bitmap, 750, 750, false);
+            backgroundImageView.setImageBitmap(bitmap);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
