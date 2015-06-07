@@ -82,7 +82,7 @@
             android:layout_marginLeft="20dp"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="My Meme" />
+            android:text="Popular Meme" />
 
     </LinearLayout>
 
