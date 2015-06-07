@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +20,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -35,7 +41,7 @@ public class VanillaFragment extends Fragment {
     private static final String ARG_PARAM4 = "bottomText";
     private static final String ARG_PARAM5 = "isNewProject";
 
-
+    private Bitmap bitmap;
     private Uri imageUri;
     private String topText;
     private String middleText;
@@ -122,10 +128,38 @@ public class VanillaFragment extends Fragment {
 //        options.inJustDecodeBounds = true;
 //        BitmapFactory.decodeFile(new File(imageUri.getPath()).getAbsolutePath(), options);
 
+
+
+
+
         try {
+            DisplayMetrics metrics = new DisplayMetrics();
+            getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+//            float screenWidth = metrics.scaledDensity;
+//            float screenHeight = metrics.scaledDensity;
+
+            int screenWidth = metrics.widthPixels;
+            int screenHeight = metrics.heightPixels;
+
+
+            Matrix matrix = new Matrix();
+            matrix.postRotate(90);
+
+
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri);
-            bitmap = Bitmap.createScaledBitmap(bitmap, 750, 750, false);
-            backgroundImageView.setImageBitmap(bitmap);
+
+            int bitmapWidth = bitmap.getWidth();
+            int bitmapHeight = bitmap.getHeight();
+
+            int desiredHeight = (bitmapHeight*screenWidth)/bitmapWidth;
+
+
+            bitmap = Bitmap.createScaledBitmap(bitmap, screenWidth, desiredHeight, false);
+
+            Bitmap rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0,bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            backgroundImageView.setImageBitmap(rotatedBitmap);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -182,6 +216,7 @@ public class VanillaFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
 
 
