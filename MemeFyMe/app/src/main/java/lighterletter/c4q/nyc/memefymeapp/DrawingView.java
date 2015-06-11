@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 /**
  * Created by mona on 5/12/15.
@@ -17,7 +18,9 @@ import android.view.View;
 public class DrawingView extends View {
 
     private Path drawPath;
-    private Paint drawPaint, canvasPaint;
+    public static Paint drawPaint, canvasPaint;
+    private ColorPicker colorPicker;
+    private Button useColor;
     private int paintColor = Color.CYAN;
     private Canvas drawCanvas;
     private Bitmap canvasBitmap;
@@ -25,7 +28,11 @@ public class DrawingView extends View {
 
     public DrawingView(Context context, AttributeSet attrs){
         super(context, attrs);
+
+        useColor = (Button) findViewById(R.id.pickColor);
+        colorPicker = (ColorPicker) findViewById(R.id.colorWheel);
         setupDrawing();
+        
     }
 
     public void setupDrawing() {

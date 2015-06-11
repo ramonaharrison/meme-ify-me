@@ -2,6 +2,7 @@ package lighterletter.c4q.nyc.memefymeapp;
 
 import android.app.Activity;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -33,11 +34,13 @@ public class CustomFragment extends Fragment {
     private Uri imageUri;
     private String bottomText;
     private boolean isNewProject;
-
+    private ColorPicker colorPicker;
     private FrameLayout memeView;
     private ImageView backgroundImageView;
     private EditText bottomTextView;
     private Button saveButton;
+    private Button useColor;
+    private Button clear;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -77,6 +80,8 @@ public class CustomFragment extends Fragment {
             bottomText = "";
         }
 
+
+
     }
 
     @Override
@@ -86,6 +91,9 @@ public class CustomFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_custom, container, false);
 
         // Find all the views
+        clear = (Button) view.findViewById(R.id.clear);
+        useColor = (Button) view.findViewById(R.id.pickColor);
+        colorPicker = (ColorPicker) view.findViewById(R.id.colorWheel);
         memeView = (FrameLayout) view.findViewById(R.id.customView);
         backgroundImageView = (ImageView) view.findViewById(R.id.customBackgroundImage);
         bottomTextView = (EditText) view.findViewById(R.id.customBottomText);
@@ -100,6 +108,20 @@ public class CustomFragment extends Fragment {
         BitmapFactory.decodeFile(new File(imageUri.getPath()).getAbsolutePath(), options);
 
         backgroundImageView.setImageURI(imageUri);
+
+        clear.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+
+        useColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawingView.drawPaint.setColor(colorPicker.getColor());
+            }
+        });
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -118,6 +140,8 @@ public class CustomFragment extends Fragment {
         });
 
         return view;
+
+
     }
 
     @Override

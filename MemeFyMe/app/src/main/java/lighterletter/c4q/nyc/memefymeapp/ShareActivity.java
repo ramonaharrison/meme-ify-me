@@ -20,7 +20,6 @@ import java.io.IOException;
 public class ShareActivity extends ActionBarActivity {
 
     ImageView bitmap;
-    TextView top, middle, bottom;
     Button sharePicture;
 
 
@@ -31,20 +30,13 @@ public class ShareActivity extends ActionBarActivity {
 
 
         bitmap = (ImageView) findViewById(R.id.bitmap);
-        top = (TextView) findViewById(R.id.top);
-        middle = (TextView) findViewById(R.id.middle);
-        bottom = (TextView) findViewById(R.id.bottom);
         sharePicture = (Button)findViewById(R.id.share_picture_share_button);
 
         //Making the Font
         Typeface jvface4 = Typeface.createFromAsset(getAssets(), "Vollkorn_700.ttf");
         sharePicture.setTypeface(jvface4);
 
-        //the vollkorn regualr font (for title)
-        Typeface jvface6 = Typeface.createFromAsset(getAssets(),"Vollkorn_regular.ttf");
-        top.setTypeface(jvface6);
-        middle.setTypeface(jvface6);
-        bottom.setTypeface(jvface6);
+
 
 
         VanillaMeme meme = getIntent().getParcelableExtra("meme");
@@ -61,10 +53,6 @@ public class ShareActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        top.setText("Top text:  " + meme.getTopText());
-        middle.setText("Middle text:  " + meme.getMiddleText());
-        bottom.setText("Bottom text:  " + meme.getBottomText());
 
         sharePicture.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,12 +7,17 @@ import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,6 +49,11 @@ public class EditorActivity extends ActionBarActivity
     private String bottomText;
     private String bigText;
     private String subText;
+    private EditText topEditText;
+    private EditText middleEditText;
+    private EditText bottomEditText;
+
+
 
 
     @Override
@@ -78,6 +88,8 @@ public class EditorActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
 
 
         ActionBar actionBar = getSupportActionBar();
@@ -194,12 +206,15 @@ public class EditorActivity extends ActionBarActivity
         }
     }
 
-
-
-
-
     @Override
     public void onSaveButtonClicked(View memeView, int width, int height) {
+        topEditText = (EditText) findViewById(R.id.topText);
+        middleEditText = (EditText) findViewById(R.id.middleText);
+        bottomEditText = (EditText) findViewById(R.id.bottomText);
+
+        topEditText.setHint("");
+        middleEditText.setHint("");
+        bottomEditText.setHint("");
 
         // Take a screenshot
         Bitmap sharable = screenshotView(memeView, width, height);
@@ -255,6 +270,10 @@ public class EditorActivity extends ActionBarActivity
         v.draw(c);
         return screenshot;
     }
+
+
+
+
 
 
 }
