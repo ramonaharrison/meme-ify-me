@@ -208,13 +208,9 @@ public class EditorActivity extends ActionBarActivity
 
     @Override
     public void onSaveButtonClicked(View memeView, int width, int height) {
-        topEditText = (EditText) findViewById(R.id.topText);
-        middleEditText = (EditText) findViewById(R.id.middleText);
-        bottomEditText = (EditText) findViewById(R.id.bottomText);
 
-        topEditText.setHint("");
-        middleEditText.setHint("");
-        bottomEditText.setHint("");
+
+
 
         // Take a screenshot
         Bitmap sharable = screenshotView(memeView, width, height);

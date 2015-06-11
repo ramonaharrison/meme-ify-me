@@ -32,7 +32,7 @@ public class DrawingView extends View {
         useColor = (Button) findViewById(R.id.pickColor);
         colorPicker = (ColorPicker) findViewById(R.id.colorWheel);
         setupDrawing();
-        
+
     }
 
     public void setupDrawing() {
@@ -59,6 +59,10 @@ public class DrawingView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawBitmap(canvasBitmap, 0, 0, canvasPaint);
         canvas.drawPath(drawPath, drawPaint);
+    }
+
+    public void onClear(Canvas canvas){
+        canvas.drawBitmap(canvasBitmap,0,0,canvasPaint);
     }
 
     @Override

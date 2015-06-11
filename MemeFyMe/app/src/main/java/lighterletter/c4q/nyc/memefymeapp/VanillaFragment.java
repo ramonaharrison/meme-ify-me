@@ -139,6 +139,9 @@ public class VanillaFragment extends Fragment {
             public void onClick(View v) {
 
                 // Save text
+                topTextView.setHint("");
+                middleTextView.setHint("");
+                bottomTextView.setHint("");
                 mListener.onTextChanged(0, topTextView.getText().toString());
                 mListener.onTextChanged(1, middleTextView.getText().toString());
                 mListener.onTextChanged(2, bottomTextView.getText().toString());

@@ -4,7 +4,6 @@
     android:background="#0D0630"
     tools:context="lighterletter.c4q.nyc.memefymeapp.CustomFragment">
 
-
     <FrameLayout
         android:id="@+id/customView"
         android:layout_gravity="center"
@@ -19,50 +18,6 @@
             android:gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-        <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-
-            <lighterletter.c4q.nyc.memefymeapp.ColorPicker
-                android:id="@+id/colorWheel"
-                android:layout_height="100dp"
-                android:layout_width="wrap_content"
-                android:layout_alignParentStart="true"/>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_toRightOf="@id/colorWheel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                >
-            <Button
-                android:id="@+id/pickColor"
-                android:background="@drawable/jv_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Use Color"
-                android:textColor="#0D0630"/>
-            <Button
-                android:id="@+id/clear"
-                android:text="Clear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/jv_button"
-                android:textColor="#0D0630"/>
-
-            </LinearLayout>
-
-            <Button
-                android:background="@drawable/jv_button"
-                android:textColor="#0D0630"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@string/save_button"
-                android:id="@+id/custom_save_button" />
-
-        </LinearLayout>
 
             <FrameLayout
                 android:id="@+id/pictureFrame"
@@ -100,8 +55,40 @@
                 android:id="@+id/customBottomText" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <lighterletter.c4q.nyc.memefymeapp.ColorPicker
+                android:id="@+id/colorWheel"
+                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_alignParentStart="true"/>
+                <Button
+                    android:id="@+id/pickColor"
+                    android:background="@drawable/ring_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="Use Color"
+                    android:textColor="#ffffff"/>
+                <Button
+                    android:id="@+id/clear"
+                    android:text="Clear"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:background="@drawable/ring_button"
+                    android:textColor="#ffffff"/>
+        </LinearLayout>
+        <Button
+            android:background="@drawable/ring_button"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_gravity="top|end"
+            android:text="@string/save_button"
+            android:id="@+id/custom_save_button" />
     </FrameLayout>
-
-
-
 </FrameLayout>
