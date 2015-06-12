@@ -29,8 +29,6 @@ public class CustomFragment extends Fragment {
     private static final String ARG_PARAM1 = "imageUri";
     private static final String ARG_PARAM4 = "bottomText";
     private static final String ARG_PARAM5 = "isNewProject";
-
-
     private Uri imageUri;
     private String bottomText;
     private boolean isNewProject;
@@ -40,7 +38,6 @@ public class CustomFragment extends Fragment {
     private EditText bottomTextView;
     private Button saveButton;
     private Button useColor;
-    private Button clear;
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -79,21 +76,19 @@ public class CustomFragment extends Fragment {
         } else {
             bottomText = "";
         }
-
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_custom, container, false);
 
         // Find all the views
-        clear = (Button) view.findViewById(R.id.clear);
-        useColor = (Button) view.findViewById(R.id.pickColor);
         colorPicker = (ColorPicker) view.findViewById(R.id.colorWheel);
+        colorPicker.setVisibility(View.VISIBLE);
+        useColor = (Button) view.findViewById(R.id.pickColor);
+        useColor.setVisibility(View.VISIBLE);
         memeView = (FrameLayout) view.findViewById(R.id.customView);
         backgroundImageView = (ImageView) view.findViewById(R.id.customBackgroundImage);
         bottomTextView = (EditText) view.findViewById(R.id.customBottomText);
@@ -109,12 +104,6 @@ public class CustomFragment extends Fragment {
 
         backgroundImageView.setImageURI(imageUri);
 
-        clear.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-
-            }
-        });
 
         useColor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,10 +127,7 @@ public class CustomFragment extends Fragment {
                 mListener.onSaveButtonClicked(memeView, width, height);
             }
         });
-
         return view;
-
-
     }
 
     @Override
@@ -149,7 +135,6 @@ public class CustomFragment extends Fragment {
         mListener.onTextChanged(2, bottomTextView.getText().toString());
         super.onPause();
     }
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -167,5 +152,4 @@ public class CustomFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
 }

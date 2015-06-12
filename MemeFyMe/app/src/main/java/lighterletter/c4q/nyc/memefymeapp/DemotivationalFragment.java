@@ -138,7 +138,6 @@ public class DemotivationalFragment extends Fragment {
                 final int height = memeView.getHeight();
 
                 mListener.onSaveButtonClicked(memeView, width, height);
-
             }
         });
 

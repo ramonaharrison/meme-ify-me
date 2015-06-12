@@ -17,13 +17,13 @@ import android.widget.Button;
  */
 public class DrawingView extends View {
 
-    private Path drawPath;
+    private static Path drawPath;
     public static Paint drawPaint, canvasPaint;
     private ColorPicker colorPicker;
     private Button useColor;
-    private int paintColor = Color.CYAN;
-    private Canvas drawCanvas;
-    private Bitmap canvasBitmap;
+    private static int paintColor = Color.CYAN;
+    public static Canvas drawCanvas;
+    private static Bitmap canvasBitmap;
     private float xPos, yPos;
 
     public DrawingView(Context context, AttributeSet attrs){
@@ -32,10 +32,9 @@ public class DrawingView extends View {
         useColor = (Button) findViewById(R.id.pickColor);
         colorPicker = (ColorPicker) findViewById(R.id.colorWheel);
         setupDrawing();
-
     }
 
-    public void setupDrawing() {
+    public static void setupDrawing() {
         drawPath = new Path();
         drawPaint = new Paint();
         drawPaint.setColor(paintColor);
@@ -61,7 +60,7 @@ public class DrawingView extends View {
         canvas.drawPath(drawPath, drawPaint);
     }
 
-    public void onClear(Canvas canvas){
+    public static void onClear(Canvas canvas){
         canvas.drawBitmap(canvasBitmap,0,0,canvasPaint);
     }
 

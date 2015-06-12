@@ -22,7 +22,6 @@ public class MemeTemplateActivity extends ActionBarActivity {
         setContentView(R.layout.activity_template);
 
 
-
         mGridView = (GridView) findViewById(R.id.gridView);
         mGridView.setAdapter(new ImageAdapter(getApplicationContext()));
 
