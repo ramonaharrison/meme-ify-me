@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,6 +46,7 @@ public class DemotivationalFragment extends Fragment {
     private EditText bigTextView;
     private EditText subTextView;
     private Button saveButton;
+    private ScrollView demoScrollView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -92,6 +94,7 @@ public class DemotivationalFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_demotivational, container, false);
         // Find all the views
+        demoScrollView = (ScrollView) view.findViewById(R.id.demoScrollView);
         memeView = (FrameLayout) view.findViewById(R.id.demotivationalView);
         backgroundImageView = (ImageView) view.findViewById(R.id.demotivationalBackgroundImage);
         bigTextView = (EditText) view.findViewById(R.id.bigText);
@@ -116,14 +119,14 @@ public class DemotivationalFragment extends Fragment {
             e.printStackTrace();
         }
 
-
-
         backgroundImageView.setImageURI(imageUri);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 // Save text
+                bigTextView.setHint("");
+                subTextView.setHint("");
                 mListener.onTextChanged(0, bigTextView.getText().toString());
                 mListener.onTextChanged(1, subTextView.getText().toString());
 
@@ -135,7 +138,6 @@ public class DemotivationalFragment extends Fragment {
                 final int height = memeView.getHeight();
 
                 mListener.onSaveButtonClicked(memeView, width, height);
-
             }
         });
 
@@ -165,8 +167,5 @@ public class DemotivationalFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
-
-
 
 }

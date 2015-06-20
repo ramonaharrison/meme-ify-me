@@ -9,14 +9,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:id="@+id/edit_text"
-        android:text="Edit Your Photo Memes Here:"
+        android:text="Vanilla!"
         android:theme="@style/jv_titletext"
         android:textSize="30dp"
         />
-
-
 
     <FrameLayout
         android:id="@+id/memeView"
@@ -39,6 +37,8 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:hint="Make"
+                android:textColorHint="#FFFFFF"
                 android:layout_weight="1"
                 android:background="@null"
                 android:layout_marginTop="10dp"
@@ -51,6 +51,8 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:hint="Your"
+                android:textColorHint="#FFFFFF"
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center"
@@ -62,6 +64,8 @@
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:hint="Meme!"
+                android:textColorHint="#FFFFFF"
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center"

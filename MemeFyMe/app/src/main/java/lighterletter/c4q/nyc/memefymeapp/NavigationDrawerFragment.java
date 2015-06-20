@@ -1,5 +1,7 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -11,10 +13,12 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -84,6 +88,7 @@ public class NavigationDrawerFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
+        peekDrawer();
     }
 
     @Override
@@ -91,6 +96,7 @@ public class NavigationDrawerFragment extends Fragment {
                              Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
+
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -109,6 +115,7 @@ public class NavigationDrawerFragment extends Fragment {
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
+
     }
 
     public boolean isDrawerOpen() {
@@ -279,5 +286,29 @@ public class NavigationDrawerFragment extends Fragment {
          * Called when an item in the navigation drawer is selected.
          */
         void onNavigationDrawerItemSelected(int position);
+    }
+    public void peekDrawer() {
+        final int PEEK_DRAWER_TIME_SECONDS = 5;
+        final long[] downTime = new long[1];
+        final long[] eventTime = new long[1];
+        final float x = 0.0f;
+        final float y = 100.0f;
+        final int metaState = 0;
+        downTime[0] = SystemClock.uptimeMillis();
+        eventTime[0] = SystemClock.uptimeMillis() + 100;
+        MotionEvent motionEvent = MotionEvent.obtain(downTime[0], eventTime[0], MotionEvent.ACTION_DOWN, x, y, metaState);
+        mDrawerLayout.dispatchTouchEvent(motionEvent);
+        motionEvent.recycle();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                downTime[0] = SystemClock.uptimeMillis();
+                eventTime[0] = SystemClock.uptimeMillis() + 100;
+                MotionEvent motionEvent = MotionEvent.obtain(downTime[0], eventTime[0], MotionEvent.ACTION_UP, x, y, metaState);
+                mDrawerLayout.dispatchTouchEvent(motionEvent);
+                motionEvent.recycle();
+            }
+        }, (long) (PEEK_DRAWER_TIME_SECONDS * DateUtils.SECOND_IN_MILLIS));
     }
 }

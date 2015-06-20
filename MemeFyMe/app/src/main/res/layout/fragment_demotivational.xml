@@ -4,13 +4,17 @@
     android:background="#0D0630"
     tools:context="lighterletter.c4q.nyc.memefymeapp.Demotivational">
 
-
     <FrameLayout
         android:id="@+id/demotivationalView"
         android:layout_gravity="center"
         android:background="@android:color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
+        <ScrollView
+            android:id="@+id/demoScrollView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/demotivationalBackground"
@@ -35,6 +39,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="#000000"
+                android:hint="Text Here"
+                android:textColorHint="#FFFFFF"
                 android:layout_marginTop="10dp"
                 android:inputType="textMultiLine"
                 android:gravity="center"
@@ -46,6 +52,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="#000000"
+                android:hint="Text Here"
+                android:textColorHint="#FFFFFF"
                 android:gravity="center"
                 android:inputType="textMultiLine"
                 android:textColor="@android:color/white"
@@ -53,14 +61,16 @@
                 android:id="@+id/subText"/>
 
         </LinearLayout>
+        </ScrollView>
     </FrameLayout>
 
     <Button
-        android:background="@drawable/jv_button"
-        android:textColor="#0D0630"
+        android:background="@drawable/ring_button"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_height="80dp"
+        android:layout_gravity="top|end"
         android:text="@string/save_button"
         android:id="@+id/demotivational_save_button" />
 

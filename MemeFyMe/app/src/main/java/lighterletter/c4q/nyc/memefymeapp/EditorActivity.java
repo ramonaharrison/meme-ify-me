@@ -7,12 +7,18 @@ import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,6 +50,13 @@ public class EditorActivity extends ActionBarActivity
     private String bottomText;
     private String bigText;
     private String subText;
+    private EditText topEditText;
+    private EditText middleEditText;
+    private EditText bottomEditText;
+    private Button useColor;
+    private ColorPicker colorWheel;
+
+
 
 
     @Override
@@ -78,6 +91,8 @@ public class EditorActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
 
 
         ActionBar actionBar = getSupportActionBar();
@@ -194,12 +209,15 @@ public class EditorActivity extends ActionBarActivity
         }
     }
 
-
-
-
-
     @Override
     public void onSaveButtonClicked(View memeView, int width, int height) {
+
+        // Hide buttons
+        colorWheel = (ColorPicker) findViewById(R.id.colorWheel);
+        useColor = (Button) findViewById(R.id.pickColor);
+        colorWheel.setVisibility(View.INVISIBLE);
+        useColor.setVisibility(View.INVISIBLE);
+
 
         // Take a screenshot
         Bitmap sharable = screenshotView(memeView, width, height);
@@ -246,8 +264,6 @@ public class EditorActivity extends ActionBarActivity
 
     }
 
-
-
     public static Bitmap screenshotView(View v, int width, int height) {
         Bitmap screenshot = Bitmap.createBitmap(width , height, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(screenshot);
@@ -255,6 +271,5 @@ public class EditorActivity extends ActionBarActivity
         v.draw(c);
         return screenshot;
     }
-
 
 }

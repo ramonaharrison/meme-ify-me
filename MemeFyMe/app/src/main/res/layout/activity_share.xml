@@ -27,36 +27,6 @@
             android:layout_weight="2"
             android:id="@+id/bitmap" />
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="3"
-            android:paddingTop="5dp"
-            android:textColor="#0D0630"
-            android:background="#5A919E"
-            android:text="New Text"
-            android:id="@+id/top" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="3"
-            android:paddingTop="5dp"
-            android:textColor="#61BFAC"
-            android:background="#384E77"
-            android:text="New Text"
-            android:id="@+id/middle" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="3"
-            android:paddingTop="5dp"
-            android:textColor="#5A919E"
-            android:background="#18314F"
-            android:text="New Text"
-            android:id="@+id/bottom" />
-
         <Button android:id="@+id/share_picture_share_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
