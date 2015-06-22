@@ -39,6 +39,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //This is for the flickr
+        GetRawData theRawData = new GetRawData("https://api.flickr.com/services/feeds/photos_public.gne?tags=android,lollipop&format=jsoncallback=1");
+        GetFlickrJsonData jsonData = new GetFlickrJsonData("android, lollipop", true);
+        theRawData.execute();
+
 // to hide the action bar
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getSupportActionBar();
