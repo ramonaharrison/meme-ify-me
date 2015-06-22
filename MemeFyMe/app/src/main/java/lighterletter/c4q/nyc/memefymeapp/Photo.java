@@ -3,7 +3,7 @@ package lighterletter.c4q.nyc.memefymeapp;
 /**
  * Created by Hans on 6/21/15.
  */
-        
+
 public class Photo {
     private String mTitle;
     private String mAuthor;
