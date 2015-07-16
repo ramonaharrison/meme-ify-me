@@ -1,7 +1,9 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -14,6 +16,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 
@@ -22,6 +26,15 @@ public class ShareActivity extends ActionBarActivity {
     ImageView bitmap;
     TextView top, middle, bottom;
     Button sharePicture;
+
+
+    private MyDataBase mdb=null;
+    private SQLiteDatabase db=null;
+
+    private byte[] img=null;
+    private static final String DATABASE_NAME = "ImageDb.db";
+    public static final int DATABASE_VERSION = 1;
+
 
 
     @Override
@@ -69,6 +82,20 @@ public class ShareActivity extends ActionBarActivity {
         sharePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                mdb = new MyDataBase(getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
+
+                bitmap.buildDrawingCache();
+                Bitmap bitmap2 = bitmap.getDrawingCache();
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap2.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                img = bos.toByteArray();
+                db = mdb.getWritableDatabase();
+                ContentValues cv=new ContentValues();
+                cv.put("image", img);
+                db.insert("tableimage", null, cv);
+
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_STREAM, resultUri);

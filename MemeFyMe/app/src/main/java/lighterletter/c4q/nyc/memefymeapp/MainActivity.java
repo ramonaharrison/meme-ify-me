@@ -1,10 +1,11 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
+import android.content.ContentValues;
 import android.content.Intent;
-
-
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,16 +13,23 @@ import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-
 public class MainActivity extends ActionBarActivity {
+    private MyDataBase mdb=null;
+    private SQLiteDatabase db=null;
+    private byte[] img=null;
+    private static final String DATABASE_NAME = "ImageDb.db";
+    public static final int DATABASE_VERSION = 1;
+
 
 
     Button buttonTemplate;
@@ -38,6 +46,21 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mdb = new MyDataBase(getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
+
+
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.futuramafry);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        img = bos.toByteArray();
+        db = mdb.getWritableDatabase();
+        ContentValues cv=new ContentValues();
+        cv.put("image", img);
+        db.insert("tableimage", null, cv);
+
+
+
 
 // to hide the action bar
         setContentView(R.layout.activity_main);
