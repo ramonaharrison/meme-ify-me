@@ -1,6 +1,5 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,23 +8,28 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+
 /**
  * Created by Luke on 6/5/2015.
  */
 public class MemeTemplateActivity extends ActionBarActivity {
 
     GridView mGridView;
+    AddAllMemes addAllMemes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template);
-
-
-
+        addAllMemes=new AddAllMemes(this);
         mGridView = (GridView) findViewById(R.id.gridView);
         mGridView.setAdapter(new ImageAdapter(getApplicationContext()));
 
+
+        addDataToDatabase();
 
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,6 +65,30 @@ public class MemeTemplateActivity extends ActionBarActivity {
 
             }
         });
+
+    }
+
+    //Method to add all photos from Raw folder to the Database
+
+    public void addDataToDatabase(){
+
+        Field[] fields=R.raw.class.getFields();
+        try {
+            for (int count = 0; count < fields.length; count++) {
+                String name = fields[count].getName();
+                int resourceID = fields[count].getInt(fields[count]);
+                InputStream bs = getResources().openRawResource(resourceID);
+                byte[] bytes = new byte[bs.available()];
+                bs.read(bytes);
+                String linkToFile = new String(bytes);
+                addAllMemes.insertData(name,linkToFile);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
 
     }
 }
