@@ -1,13 +1,16 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by Luke on 6/5/2015.
@@ -15,17 +18,16 @@ import android.widget.GridView;
 public class MemeTemplateActivity extends ActionBarActivity {
 
     GridView mGridView;
+    private DatabaseHelper mHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template);
 
-
-
         mGridView = (GridView) findViewById(R.id.gridView);
-        mGridView.setAdapter(new ImageAdapter(getApplicationContext()));
 
+        new DatabaseTask().execute();
 
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -52,15 +54,41 @@ public class MemeTemplateActivity extends ActionBarActivity {
                         name = R.drawable.xeverywhere;
                         break;
                 }
-
                 Uri path = Uri.parse("android.resource://lighterletter.c4q.nyc.memefymeapp/" + name);
                 Intent ramona = new Intent(getApplicationContext(), EditorActivity.class);
                 ramona.putExtra("uri", path);
                 startActivity(ramona);
-
-
             }
         });
+    }
 
+    private class DatabaseTask extends AsyncTask<Void, Void, List<TemplateImage>> {
+
+        @Override
+        protected List<TemplateImage> doInBackground(Void... params) {
+
+            mHelper = DatabaseHelper.getInstance(getApplicationContext());
+
+            try {
+                if (mHelper.loadData().size() == 0) {
+                    mHelper.insertRow(R.drawable.futuramafry);
+                    mHelper.insertRow(R.drawable.onedoesnotsimply);
+                    mHelper.insertRow(R.drawable.successkid);
+                    mHelper.insertRow(R.drawable.thatwouldbegreat);
+                    mHelper.insertRow(R.drawable.toodamnhigh);
+                    mHelper.insertRow(R.drawable.xeverywhere);
+                }
+
+                return mHelper.loadData();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        protected void onPostExecute(List<TemplateImage> templateImages) {
+            mGridView.setAdapter(new TemplateImageAdapter(MemeTemplateActivity.this, templateImages));
+        }
     }
 }
