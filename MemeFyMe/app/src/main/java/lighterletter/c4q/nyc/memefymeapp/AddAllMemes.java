@@ -6,14 +6,13 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by c4q-madelyntavarez on 7/15/15.
  */
 public class AddAllMemes {
 
-    DBAHelper dbHelper;
+    public DBAHelper dbHelper;
     Context context;
 
     public AddAllMemes(Context context){
@@ -30,9 +29,8 @@ public class AddAllMemes {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBAHelper.PHOTO_NAME, title);
         contentValues.put(DBAHelper.PHOTO_LINK, link);
-        long id=db.insert(DBAHelper.TABLE_NAME, null, contentValues);
+        db.insert(DBAHelper.TABLE_NAME, null, contentValues);
 
-        Toast.makeText(context,"Data Inserted "+ id+ " rows added", Toast.LENGTH_LONG).show();
     }
 
 
@@ -44,9 +42,10 @@ public class AddAllMemes {
         private static final String UID="_id";
         private static int DATABASE_VERSION = 7;
         private Context context;
+        DBAHelper dbaHelper;
         private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + TABLE_NAME;
         private static final String CREATE_TABLE = "Create table " + TABLE_NAME + " (" + UID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + PHOTO_NAME
-                + " VARCHAR(255), " + PHOTO_LINK + " VARCHAR (255));";
+                + " VARCHAR(255), " + PHOTO_LINK + " BLOB);";
 
         public DBAHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -55,6 +54,8 @@ public class AddAllMemes {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+
+
             try {
                 db.execSQL(CREATE_TABLE);
                 Log.d(" Created", "Created Table");

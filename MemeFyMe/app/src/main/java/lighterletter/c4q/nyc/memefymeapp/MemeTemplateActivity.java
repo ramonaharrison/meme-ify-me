@@ -1,7 +1,6 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -10,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
@@ -21,7 +21,6 @@ public class MemeTemplateActivity extends ActionBarActivity {
 
     GridView mGridView;
     AddAllMemes addAllMemes;
-    SQLiteDatabase sqLiteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,16 +85,18 @@ public class MemeTemplateActivity extends ActionBarActivity {
 //                bs.read(bytes);
 //                String linkToFile = new String(bytes);
 //                addAllMemes.insertData(name,linkToFile);
+
                 Bitmap bitmap= BitmapFactory.decodeResource(getResources(),resourceID);
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG,100,bos);
                 byte[] img=bos.toByteArray();
                 addAllMemes.insertData(name,img);
+                Toast.makeText(this, "Data Inserted " + count + " rows added", Toast.LENGTH_SHORT).show();
             }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
 
-
     }
+
 }
