@@ -23,12 +23,9 @@ import java.util.Date;
 
 public class MainActivity extends ActionBarActivity {
 
-
     Button buttonTemplate;
     ImageButton buttonCamera;
     ImageButton buttonGallery;
-
-
 
     static final int REQUEST_CODE_TAKE_PHOTO = 1;
     static final int REQUEST_CODE_IMAGE_GET = 2;

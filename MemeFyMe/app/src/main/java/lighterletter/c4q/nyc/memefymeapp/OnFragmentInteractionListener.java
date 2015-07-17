@@ -7,7 +7,7 @@ import android.view.View;
  */
 public interface OnFragmentInteractionListener {
 
-    public void onTextChanged(int pos, String text);
+     void onTextChanged(int pos, String text);
 
-    public void onSaveButtonClicked(View memeView, int width, int height);
+     void onSaveButtonClicked(View memeView, int width, int height);
 }
