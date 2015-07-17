@@ -1,6 +1,9 @@
 package lighterletter.c4q.nyc.memefymeapp;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -8,8 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
 
 /**
@@ -19,12 +21,14 @@ public class MemeTemplateActivity extends ActionBarActivity {
 
     GridView mGridView;
     AddAllMemes addAllMemes;
+    SQLiteDatabase sqLiteDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_template);
         addAllMemes=new AddAllMemes(this);
+
         mGridView = (GridView) findViewById(R.id.gridView);
         mGridView.setAdapter(new ImageAdapter(getApplicationContext()));
 
@@ -77,14 +81,17 @@ public class MemeTemplateActivity extends ActionBarActivity {
             for (int count = 0; count < fields.length; count++) {
                 String name = fields[count].getName();
                 int resourceID = fields[count].getInt(fields[count]);
-                InputStream bs = getResources().openRawResource(resourceID);
-                byte[] bytes = new byte[bs.available()];
-                bs.read(bytes);
-                String linkToFile = new String(bytes);
-                addAllMemes.insertData(name,linkToFile);
+//                InputStream bs = getResources().openRawResource(resourceID);
+//                byte[] bytes = new byte[bs.available()];
+//                bs.read(bytes);
+//                String linkToFile = new String(bytes);
+//                addAllMemes.insertData(name,linkToFile);
+                Bitmap bitmap= BitmapFactory.decodeResource(getResources(),resourceID);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG,100,bos);
+                byte[] img=bos.toByteArray();
+                addAllMemes.insertData(name,img);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }

@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by c4q-madelyntavarez on 7/15/15.
@@ -13,21 +14,25 @@ import android.util.Log;
 public class AddAllMemes {
 
     DBAHelper dbHelper;
+    Context context;
 
     public AddAllMemes(Context context){
+        this.context=context;
         dbHelper=new DBAHelper(context);
 
     }
 
 
-    public void insertData(String title, String link) {
+    public void insertData(String title, byte[] link) {
 
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBAHelper.PHOTO_NAME, title);
         contentValues.put(DBAHelper.PHOTO_LINK, link);
-        long id = db.insert(DBAHelper.TABLE_NAME, null, contentValues);
+        long id=db.insert(DBAHelper.TABLE_NAME, null, contentValues);
+
+        Toast.makeText(context,"Data Inserted "+ id+ " rows added", Toast.LENGTH_LONG).show();
     }
 
 
